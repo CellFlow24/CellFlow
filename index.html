@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Cellflow offers simple billing (Billflow) and PG management (Mess Khata) software for small businesses. Custom app development available.">
+    <meta name="description" content="Cellflow offers simple billing (Billflow) and PG management (Mess Khata) software for small businesses.">
     <title>Cellflow | Business Software Simplified</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -26,8 +26,7 @@
             <div class="project-card" onclick="openModal('billflowModal')">
                 <h3>Billflow</h3>
                 <p>3-Tap Retail Billing</p>
-                <!-- Add your optimized TinyPNG image here -->
-                <img src="bannar.png" alt="Billflow Dashboard">
+                <img src="bannar.png" alt="Billflow Banner">
                 <button class="btn-secondary">View Screenshots</button>
             </div>
 
@@ -35,6 +34,8 @@
             <div class="project-card" onclick="openModal('messkhataModal')">
                 <h3>Mess Khata</h3>
                 <p>Complete PG Management</p>
+                <!-- Using one of your folder images as the cover -->
+                <img src="Mess%20Khata/Mess%20Khata%20Home.png" alt="Mess Khata Home">
                 <button class="btn-secondary">View Screenshots</button>
             </div>
         </div>
@@ -53,12 +54,26 @@
     </section>
 
     <!-- MODALS (The Pop-up Windows) -->
+    
+    <!-- Billflow Modal -->
     <div id="billflowModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('billflowModal')">&times; Back</span>
+            <span class="close-btn" onclick="closeModal('billflowModal')">&times; Close</span>
             <h2>Billflow Previews</h2>
-            <!-- Add your gallery images here -->
-            <p>Insert your images here</p>
+            <!-- Pulling images from your BillFlow folder -->
+            <img src="BillFlow/Dasbord%20Dextop.png" alt="Desktop Dashboard">
+            <img src="BillFlow/New%20Invoise%20Ph.png" alt="Phone Invoice">
+        </div>
+    </div>
+
+    <!-- Mess Khata Modal -->
+    <div id="messkhataModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('messkhataModal')">&times; Close</span>
+            <h2>Mess Khata Previews</h2>
+            <!-- Pulling images from your Mess Khata folder -->
+            <img src="Mess%20Khata/Mess%20Khata%20Home.png" alt="Mess Khata Home">
+            <img src="Mess%20Khata/Mess%20Khata%20Pay%20Detels.png" alt="Payment Details">
         </div>
     </div>
 
