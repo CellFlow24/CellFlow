@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cellflow offers simple billing (Billflow) and PG management (Mess Khata) software for small businesses. Custom app development available.">
+    <title>Cellflow | Business Software Simplified</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- HERO SECTION -->
+    <header class="hero">
+        <img src="logo.png" alt="Cellflow Logo" class="logo">
+        <h1>Is your business still run by a ledger?</h1>
+        <p>Upgrade to simple, fast, and secure apps designed for your daily needs.</p>
+        <a href="#projects" class="btn-primary">View Our Apps</a>
+    </header>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects" class="projects-section">
+        <h2>Our Products</h2>
+        <div class="card-container">
+            
+            <!-- Billflow Card -->
+            <div class="project-card" onclick="openModal('billflowModal')">
+                <h3>Billflow</h3>
+                <p>3-Tap Retail Billing</p>
+                <!-- Add your optimized TinyPNG image here -->
+                <img src="bannar.png" alt="Billflow Dashboard">
+                <button class="btn-secondary">View Screenshots</button>
+            </div>
+
+            <!-- Mess Khata Card -->
+            <div class="project-card" onclick="openModal('messkhataModal')">
+                <h3>Mess Khata</h3>
+                <p>Complete PG Management</p>
+                <button class="btn-secondary">View Screenshots</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT FORM SECTION -->
+    <section id="contact" class="contact-section">
+        <h2>Request an App or Custom Build</h2>
+        <form id="leadForm">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email (Required)" required>
+            <textarea name="message" placeholder="Tell us what you need..." required></textarea>
+            <button type="submit" class="btn-primary">Send Request</button>
+        </form>
+        <div id="formStatus"></div>
+    </section>
+
+    <!-- MODALS (The Pop-up Windows) -->
+    <div id="billflowModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('billflowModal')">&times; Back</span>
+            <h2>Billflow Previews</h2>
+            <!-- Add your gallery images here -->
+            <p>Insert your images here</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
