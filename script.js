@@ -9,14 +9,21 @@ function closeModal(modalId) {
 
 // Close modal if user clicks outside the content box
 window.onclick = function(event) {
-    if (event.target.className === 'modal') {
+    if (event.target.classList.contains('modal')) {
         event.target.style.display = "none";
     }
 }
 
+// Image Gallery Slider function
+function slideGallery(sliderId, direction) {
+    const slider = document.getElementById(sliderId);
+    const scrollAmount = slider.clientWidth; // Scrolls exactly one image width
+    slider.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+}
+
 // Google Sheets Form Submission
 document.getElementById('leadForm').addEventListener('submit', function(e) {
-    e.preventDefault(); // Stop page reload
+    e.preventDefault(); 
     
     var formStatus = document.getElementById('formStatus');
     formStatus.innerHTML = "Sending request...";
