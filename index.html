@@ -9,14 +9,13 @@
 </head>
 <body>
 
-    <!-- HERO SECTION -->
+    <!-- HERO SECTION (Fluid CSS Background) -->
     <header class="hero">
-        <div class="hero-overlay"></div>
         <div class="hero-content">
             <img src="logo.png" alt="Cellflow Logo" class="logo">
             <h1>Is your business still run by a ledger?</h1>
             <p>Upgrade to simple, fast, and secure apps designed for your daily needs.</p>
-            <a href="#projects" class="btn-primary pulse">View Our Apps</a>
+            <a href="#projects" class="btn-primary">View Our Apps</a>
         </div>
     </header>
 
@@ -24,12 +23,10 @@
     <section id="projects" class="projects-section fade-in-up">
         <h2>Our Products</h2>
         <div class="card-container">
-            
             <!-- Billflow Card -->
             <div class="project-card" onclick="openModal('billflowModal')">
                 <h3>Billflow</h3>
                 <p>3-Tap Retail Billing</p>
-                <!-- Fixed: Now shows the actual desktop dashboard -->
                 <img src="BillFlow/Dasbord%20Dextop.png" alt="Billflow Dashboard">
                 <button class="btn-secondary">View Screenshots</button>
             </div>
@@ -61,12 +58,12 @@
     <!-- Billflow Modal -->
     <div id="billflowModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('billflowModal')">&times; Back</span>
+            <!-- Updated: Removed the X, kept only sleek Back text -->
+            <span class="close-btn" onclick="closeModal('billflowModal')">Back</span>
             <h2>Billflow Previews</h2>
             <div class="slider-wrapper">
                 <button class="slide-arrow prev" onclick="slideGallery('billflow-slider', -1)">&#10094;</button>
                 <div class="slider" id="billflow-slider">
-                    <!-- All Billflow Images -->
                     <img src="BillFlow/Dasbord%20Dextop.png" alt="Dashboard Desktop">
                     <img src="BillFlow/New%20invoise%20Dextop.png" alt="New Invoice Desktop">
                     <img src="BillFlow/Bill%20history%20Dextop.png" alt="Bill History Desktop">
@@ -88,12 +85,12 @@
     <!-- Mess Khata Modal -->
     <div id="messkhataModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('messkhataModal')">&times; Back</span>
+            <!-- Updated: Removed the X, kept only sleek Back text -->
+            <span class="close-btn" onclick="closeModal('messkhataModal')">Back</span>
             <h2>Mess Khata Previews</h2>
             <div class="slider-wrapper">
                 <button class="slide-arrow prev" onclick="slideGallery('messkhata-slider', -1)">&#10094;</button>
                 <div class="slider" id="messkhata-slider">
-                    <!-- All Mess Khata Images -->
                     <img src="Mess%20Khata/Mess%20Khata%20Home.png" alt="Home">
                     <img src="Mess%20Khata/Mess%20Khata%20Admin%20Home.png" alt="Admin Home">
                     <img src="Mess%20Khata/Mess%20Khata%20Admin%20Work.png" alt="Admin Work">
