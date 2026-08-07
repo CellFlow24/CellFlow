@@ -9,76 +9,159 @@ body {
 }
 
 /* Typography & Colors */
-h1 { font-size: 2.5rem; color: #1a202c; }
+h1 { font-size: 2.5rem; color: #1a202c; margin-top: 10px; }
+h2 { font-size: 2rem; color: #1a202c; margin-bottom: 30px; text-align: center; }
+p { font-size: 1.1rem; color: #4a5568; margin-bottom: 25px; }
+
 .btn-primary {
     background-color: #0056b3;
     color: white;
-    padding: 12px 24px;
+    padding: 12px 28px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
 .btn-primary:hover {
     background-color: #004494;
-    transform: translateY(-3px); /* Smooth hover lift */
+    transform: translateY(-3px);
+}
+.btn-secondary {
+    background-color: #edf2f7;
+    color: #2d3748;
+    padding: 10px 20px;
+    border: 1px solid #cbd5e0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+}
+.btn-secondary:hover { background-color: #e2e8f0; }
+
+/* Section Containers */
+section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px;
 }
 
-/* Cards */
+/* HERO SECTION (Fixed Alignment & Logo Size) */
+.hero {
+    text-align: center;
+    padding: 80px 20px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 1px solid #eaeaea;
+}
+/* STRICT LOGO SIZING */
+.logo {
+    max-width: 300px; /* Prevents the logo from taking over the screen */
+    height: auto;
+    margin-bottom: 20px;
+}
+
+/* PROJECTS SECTION (Fixed Card Layout & Images) */
 .card-container {
     display: flex;
     justify-content: center;
-    gap: 20px;
-    padding: 40px;
+    gap: 30px;
     flex-wrap: wrap;
 }
 .project-card {
     background: white;
-    padding: 20px;
+    padding: 25px;
     border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    width: 300px;
+    width: 100%;
+    max-width: 350px; /* Locks the card size */
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .project-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+}
+/* STRICT CARD IMAGE SIZING */
+.project-card img {
+    max-width: 100%; /* Forces image to fit inside the card */
+    height: auto;
+    border-radius: 8px;
+    margin: 15px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* Modals (Pop-ups) */
+/* CONTACT FORM */
+.contact-section { text-align: center; }
+form { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 15px; 
+    max-width: 450px; 
+    margin: 0 auto; 
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+input, textarea { 
+    padding: 15px; 
+    border: 1px solid #cbd5e0; 
+    border-radius: 8px; 
+    font-size: 1rem;
+    font-family: inherit;
+}
+textarea { resize: vertical; min-height: 120px; }
+
+/* MODALS (The Pop-up Windows) */
 .modal {
-    display: none; /* Hidden by default */
+    display: none;
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0,0,0,0.85);
     z-index: 1000;
     animation: fadeIn 0.3s;
+    overflow-y: auto; /* Allows scrolling if images are tall */
 }
 .modal-content {
-    background: white;
+    background: #f8f9fa;
     margin: 5% auto;
-    padding: 20px;
-    width: 80%;
-    max-width: 800px;
+    padding: 30px;
+    width: 90%;
+    max-width: 900px;
     border-radius: 12px;
     position: relative;
+    text-align: center;
+}
+/* STRICT MODAL IMAGE SIZING */
+.modal-content img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 .close-btn {
     position: absolute;
     top: 15px;
     right: 20px;
-    font-size: 18px;
+    font-size: 24px;
     font-weight: bold;
     cursor: pointer;
     color: #e53e3e;
+    background: white;
+    padding: 5px 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
-@keyframes fadeIn {
-    from {opacity: 0;} to {opacity: 1;}
-}
-
-/* Form Styles */
-form { display: flex; flex-direction: column; gap: 15px; max-width: 400px; margin: 0 auto; }
-input, textarea { padding: 12px; border: 1px solid #ccc; border-radius: 8px; }
+@keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
