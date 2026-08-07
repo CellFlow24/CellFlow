@@ -11,14 +11,17 @@
 
     <!-- HERO SECTION -->
     <header class="hero">
-        <img src="logo.png" alt="Cellflow Logo" class="logo">
-        <h1>Is your business still run by a ledger?</h1>
-        <p>Upgrade to simple, fast, and secure apps designed for your daily needs.</p>
-        <a href="#projects" class="btn-primary">View Our Apps</a>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <img src="logo.png" alt="Cellflow Logo" class="logo">
+            <h1>Is your business still run by a ledger?</h1>
+            <p>Upgrade to simple, fast, and secure apps designed for your daily needs.</p>
+            <a href="#projects" class="btn-primary pulse">View Our Apps</a>
+        </div>
     </header>
 
     <!-- PROJECTS SECTION -->
-    <section id="projects" class="projects-section">
+    <section id="projects" class="projects-section fade-in-up">
         <h2>Our Products</h2>
         <div class="card-container">
             
@@ -26,7 +29,8 @@
             <div class="project-card" onclick="openModal('billflowModal')">
                 <h3>Billflow</h3>
                 <p>3-Tap Retail Billing</p>
-                <img src="bannar.png" alt="Billflow Banner">
+                <!-- Fixed: Now shows the actual desktop dashboard -->
+                <img src="BillFlow/Dasbord%20Dextop.png" alt="Billflow Dashboard">
                 <button class="btn-secondary">View Screenshots</button>
             </div>
 
@@ -34,7 +38,6 @@
             <div class="project-card" onclick="openModal('messkhataModal')">
                 <h3>Mess Khata</h3>
                 <p>Complete PG Management</p>
-                <!-- Using one of your folder images as the cover -->
                 <img src="Mess%20Khata/Mess%20Khata%20Home.png" alt="Mess Khata Home">
                 <button class="btn-secondary">View Screenshots</button>
             </div>
@@ -42,7 +45,7 @@
     </section>
 
     <!-- CONTACT FORM SECTION -->
-    <section id="contact" class="contact-section">
+    <section id="contact" class="contact-section fade-in-up">
         <h2>Request an App or Custom Build</h2>
         <form id="leadForm">
             <input type="text" name="name" placeholder="Your Name" required>
@@ -53,27 +56,57 @@
         <div id="formStatus"></div>
     </section>
 
-    <!-- MODALS (The Pop-up Windows) -->
+    <!-- MODALS (The Pop-up Windows with Sliders) -->
     
     <!-- Billflow Modal -->
     <div id="billflowModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('billflowModal')">&times; Close</span>
+            <span class="close-btn" onclick="closeModal('billflowModal')">&times; Back</span>
             <h2>Billflow Previews</h2>
-            <!-- Pulling images from your BillFlow folder -->
-            <img src="BillFlow/Dasbord%20Dextop.png" alt="Desktop Dashboard">
-            <img src="BillFlow/New%20Invoise%20Ph.png" alt="Phone Invoice">
+            <div class="slider-wrapper">
+                <button class="slide-arrow prev" onclick="slideGallery('billflow-slider', -1)">&#10094;</button>
+                <div class="slider" id="billflow-slider">
+                    <!-- All Billflow Images -->
+                    <img src="BillFlow/Dasbord%20Dextop.png" alt="Dashboard Desktop">
+                    <img src="BillFlow/New%20invoise%20Dextop.png" alt="New Invoice Desktop">
+                    <img src="BillFlow/Bill%20history%20Dextop.png" alt="Bill History Desktop">
+                    <img src="BillFlow/Log%20In%20dextop.png" alt="Log In Desktop">
+                    <img src="BillFlow/Dasbord%20Ph.png" alt="Dashboard Phone">
+                    <img src="BillFlow/New%20Invoise%20Ph.png" alt="New Invoice Phone">
+                    <img src="BillFlow/Bill%20History%20ph.png" alt="Bill History Phone">
+                    <img src="BillFlow/Clear%20due.png" alt="Clear Due Phone">
+                    <img src="BillFlow/Due%20Bill%20Ph.png" alt="Due Bill Phone">
+                    <img src="BillFlow/Log%20In%20Ph.png" alt="Log In Phone">
+                    <img src="BillFlow/Bill%20Dummy.png" alt="Bill Dummy">
+                </div>
+                <button class="slide-arrow next" onclick="slideGallery('billflow-slider', 1)">&#10095;</button>
+            </div>
+            <p class="swipe-text">Swipe or click arrows to view more</p>
         </div>
     </div>
 
     <!-- Mess Khata Modal -->
     <div id="messkhataModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('messkhataModal')">&times; Close</span>
+            <span class="close-btn" onclick="closeModal('messkhataModal')">&times; Back</span>
             <h2>Mess Khata Previews</h2>
-            <!-- Pulling images from your Mess Khata folder -->
-            <img src="Mess%20Khata/Mess%20Khata%20Home.png" alt="Mess Khata Home">
-            <img src="Mess%20Khata/Mess%20Khata%20Pay%20Detels.png" alt="Payment Details">
+            <div class="slider-wrapper">
+                <button class="slide-arrow prev" onclick="slideGallery('messkhata-slider', -1)">&#10094;</button>
+                <div class="slider" id="messkhata-slider">
+                    <!-- All Mess Khata Images -->
+                    <img src="Mess%20Khata/Mess%20Khata%20Home.png" alt="Home">
+                    <img src="Mess%20Khata/Mess%20Khata%20Admin%20Home.png" alt="Admin Home">
+                    <img src="Mess%20Khata/Mess%20Khata%20Admin%20Work.png" alt="Admin Work">
+                    <img src="Mess%20Khata/Mess%20Khata%20Chat.png" alt="Chat">
+                    <img src="Mess%20Khata/Mess%20Khata%20Expence.png" alt="Expense">
+                    <img src="Mess%20Khata/Mess%20Khata%20History.png" alt="History">
+                    <img src="Mess%20Khata/Mess%20Khata%20Log%20Work.png" alt="Log Work">
+                    <img src="Mess%20Khata/Mess%20Khata%20Pay%20Detels.png" alt="Pay Details">
+                    <img src="Mess%20Khata/Mess%20Khata%20Log%20In.png" alt="Log In">
+                </div>
+                <button class="slide-arrow next" onclick="slideGallery('messkhata-slider', 1)">&#10095;</button>
+            </div>
+            <p class="swipe-text">Swipe or click arrows to view more</p>
         </div>
     </div>
 
