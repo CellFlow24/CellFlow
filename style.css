@@ -1,133 +1,159 @@
-/* Base Styles */
+/* Base Styles & Soft Professional Background */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8f9fa;
-    color: #333;
+    background-color: #f0f4f8; /* Soft, premium tech-gray/blue */
+    color: #2d3748;
     scroll-behavior: smooth;
 }
 h1, h2, h3, p { margin-top: 0; }
 
-/* HERO SECTION (Banner Background & Animations) */
+/* -------------------------------------------
+   HERO SECTION (Fluid Color Animation)
+-------------------------------------------- */
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 .hero {
     position: relative;
-    background-image: url('bannar.png');
-    background-size: cover;
-    background-position: center;
+    /* Uses your brand Blue and Green for a seamless, shifting gradient */
+    background: linear-gradient(-45deg, #0056b3, #00b050, #0a3a7a, #008a40);
+    background-size: 400% 400%;
+    animation: gradientBG 12s ease infinite; /* Smooth 12-second color shift */
     padding: 100px 20px;
     text-align: center;
-    color: white; /* White text to stand out against the banner */
+    color: white;
     overflow: hidden;
-}
-/* This adds a dark tint over the banner so the logo and text are readable */
-.hero-overlay {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.7); 
-    z-index: 1;
 }
 .hero-content {
     position: relative;
-    z-index: 2; /* Keeps text above the dark tint */
+    z-index: 2;
 }
-/* Floating Animation for Logo */
+
+/* Floating & Rounded Logo Animation */
 @keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
-    100% { transform: translateY(0px); }
+    0% { transform: translateY(0px); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+    50% { transform: translateY(-12px); box-shadow: 0 20px 35px rgba(0,0,0,0.3); }
+    100% { transform: translateY(0px); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
 }
 .logo {
-    max-width: 250px;
-    height: auto;
-    margin-bottom: 20px;
-    animation: float 4s ease-in-out infinite; /* Makes it float! */
+    width: 160px;
+    height: 160px; /* Forces a perfect square ratio */
+    object-fit: contain;
+    background: white;
+    border-radius: 50%; /* Makes it a perfect circle */
+    padding: 12px;
+    margin-bottom: 25px;
+    animation: float 4s ease-in-out infinite;
 }
-.hero h1 { font-size: 2.8rem; margin-bottom: 10px; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
-.hero p { font-size: 1.2rem; margin-bottom: 30px; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
+.hero h1 { font-size: 2.8rem; margin-bottom: 15px; font-weight: 800; }
+.hero p { font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9; }
 
-/* Buttons & Animations */
+/* Buttons */
 .btn-primary {
-    background-color: #0056b3;
-    color: white;
-    padding: 12px 28px;
+    background-color: #ffffff;
+    color: #0056b3;
+    padding: 14px 32px;
     border: none;
-    border-radius: 8px;
+    border-radius: 30px; /* Pill shape is more modern */
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 700;
     text-decoration: none;
     display: inline-block;
-    transition: transform 0.3s ease, background-color 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
-.btn-primary:hover { background-color: #004494; transform: translateY(-3px); }
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+
 .btn-secondary {
-    background-color: #edf2f7; color: #2d3748; padding: 10px 20px;
-    border: 1px solid #cbd5e0; border-radius: 8px; cursor: pointer;
-    font-weight: bold; width: 100%; margin-top: 15px; transition: 0.3s;
+    background-color: #e2e8f0; color: #2d3748; padding: 12px 20px;
+    border: none; border-radius: 8px; cursor: pointer;
+    font-weight: 600; width: 100%; margin-top: 15px; transition: 0.3s;
 }
-.btn-secondary:hover { background-color: #e2e8f0; }
+.btn-secondary:hover { background-color: #cbd5e0; }
 
 @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
+    from { opacity: 0; transform: translateY(40px); }
     to { opacity: 1; transform: translateY(0); }
 }
 .fade-in-up { animation: fadeInUp 1s ease-out forwards; }
 
 /* Section Containers */
-section { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
-h2 { font-size: 2rem; color: #1a202c; margin-bottom: 30px; text-align: center; }
+section { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
+h2 { font-size: 2.2rem; color: #1a202c; margin-bottom: 40px; text-align: center; font-weight: 800;}
 
 /* Cards */
-.card-container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+.card-container { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
 .project-card {
-    background: white; padding: 25px; border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08); cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s; width: 100%; max-width: 350px;
+    background: white; padding: 30px; border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); cursor: pointer;
+    transition: all 0.4s ease; width: 100%; max-width: 340px;
     text-align: center; display: flex; flex-direction: column; align-items: center;
+    border: 1px solid #e2e8f0;
 }
-.project-card:hover { transform: translateY(-8px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
-.project-card img { max-width: 100%; height: auto; border-radius: 8px; margin: 15px 0; max-height: 250px; object-fit: contain; }
+.project-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); border-color: #cbd5e0; }
+.project-card img { max-width: 100%; height: auto; border-radius: 8px; margin: 20px 0; max-height: 250px; object-fit: contain; }
+.project-card h3 { font-size: 1.5rem; color: #0056b3; margin-bottom: 5px; }
 
 /* Contact Form */
 .contact-section { text-align: center; }
-form { display: flex; flex-direction: column; gap: 15px; max-width: 450px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-input, textarea { padding: 15px; border: 1px solid #cbd5e0; border-radius: 8px; font-size: 1rem; font-family: inherit; }
-textarea { resize: vertical; min-height: 120px; }
+form { display: flex; flex-direction: column; gap: 20px; max-width: 500px; margin: 0 auto; background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+input, textarea { padding: 16px; border: 1px solid #cbd5e0; border-radius: 10px; font-size: 1rem; font-family: inherit; transition: 0.3s; background: #f8fafc; }
+input:focus, textarea:focus { outline: none; border-color: #0056b3; background: white; box-shadow: 0 0 0 3px rgba(0,86,179,0.1); }
+textarea { resize: vertical; min-height: 140px; }
 
-/* MODALS & SLIDERS */
+/* -------------------------------------------
+   MODALS & SLEEK UI SLIDERS
+-------------------------------------------- */
 .modal {
     display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.85); z-index: 1000; animation: fadeIn 0.3s; overflow-y: auto;
+    background-color: rgba(15, 23, 42, 0.9); /* Premium dark slate backdrop */
+    z-index: 1000; animation: fadeIn 0.3s; overflow-y: auto;
+    backdrop-filter: blur(5px);
 }
 .modal-content {
-    background: #f8f9fa; margin: 5% auto; padding: 30px; width: 90%; max-width: 900px;
-    border-radius: 12px; position: relative; text-align: center;
+    background: #ffffff; margin: 5% auto; padding: 40px 30px; width: 90%; max-width: 950px;
+    border-radius: 20px; position: relative; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.25);
 }
+
+/* Modern Minimalist Back Button */
 .close-btn {
-    position: absolute; top: 15px; right: 20px; font-size: 20px; font-weight: bold;
-    cursor: pointer; color: #e53e3e; background: white; padding: 5px 15px;
-    border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); z-index: 10;
+    position: absolute; top: 20px; right: 25px; font-size: 15px; font-weight: 600;
+    cursor: pointer; color: #4a5568; background: #f1f5f9; padding: 8px 20px;
+    border-radius: 30px; transition: 0.3s; z-index: 10; border: 1px solid #e2e8f0;
 }
+.close-btn:hover { background: #e2e8f0; color: #1a202c; transform: translateY(-2px); }
+
 @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
 
 /* Slider Layout */
-.slider-wrapper { position: relative; width: 100%; display: flex; align-items: center; }
+.slider-wrapper { position: relative; width: 100%; display: flex; align-items: center; margin-top: 20px; }
 .slider {
     display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
-    scroll-behavior: smooth; gap: 20px; padding-bottom: 10px; width: 100%;
-    /* Hide scrollbar for clean look */
+    scroll-behavior: smooth; gap: 30px; padding-bottom: 15px; width: 100%;
     -ms-overflow-style: none; scrollbar-width: none;
 }
 .slider::-webkit-scrollbar { display: none; }
 .slider img {
     scroll-snap-align: center; flex: 0 0 100%; max-width: 100%;
-    height: 60vh; object-fit: contain; border-radius: 8px;
+    height: 65vh; object-fit: contain; border-radius: 12px;
 }
+
+/* Modern Fluid Arrows (Frosted Glass Effect) */
 .slide-arrow {
-    background: rgba(0,0,0,0.5); color: white; border: none; font-size: 24px;
-    padding: 15px; cursor: pointer; border-radius: 50%; z-index: 5; transition: 0.3s;
+    background: rgba(255, 255, 255, 0.9);
+    color: #1a202c; border: none; font-size: 18px;
+    width: 50px; height: 50px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; border-radius: 50%; z-index: 5; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    backdrop-filter: blur(4px);
 }
-.slide-arrow:hover { background: rgba(0,0,0,0.8); }
-.slide-arrow.prev { position: absolute; left: 0; }
-.slide-arrow.next { position: absolute; right: 0; }
-.swipe-text { font-size: 0.9rem; color: #718096; margin-top: 15px; }
+.slide-arrow:hover { background: #ffffff; transform: scale(1.1); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+.slide-arrow.prev { position: absolute; left: 10px; }
+.slide-arrow.next { position: absolute; right: 10px; }
+.swipe-text { font-size: 0.95rem; color: #a0aec0; margin-top: 20px; font-weight: 500; }
