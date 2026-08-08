@@ -1,3 +1,11 @@
+// Force browser to start at the top of the page on refresh
+if (history.scrollRestoration) {
+    history.scrollRestoration = 'manual';
+}
+window.onload = function() {
+    window.scrollTo(0, 0);
+};
+
 // Modal System (Pop-ups)
 function openModal(modalId) {
     document.getElementById(modalId).style.display = 'block';
