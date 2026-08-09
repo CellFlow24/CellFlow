@@ -76,14 +76,15 @@ h1, h2, h3, h4, p { margin-top: 0; }
     width: 50%;
     display: flex;
     justify-content: flex-end;
-    padding-right: 40px; /* Prevents right-side clipping */
+    padding-right: 40px; 
 }
 
 .stacked-carousel {
     position: relative;
     width: 100%;
     max-width: 380px;
-    height: 520px;
+    /* INCREASED HEIGHT: Gives the 9:16 portrait images room to breathe */
+    height: 620px; 
 }
 
 .stacked-card {
@@ -91,7 +92,7 @@ h1, h2, h3, h4, p { margin-top: 0; }
     top: 0; left: 0;
     width: 100%; height: 100%;
     background: #ffffff;
-    border-radius: 12px;
+    border-radius: 16px;
     box-shadow: 0 15px 35px rgba(0,0,0,0.1);
     border: 1px solid #e2e8f0;
     display: flex;
@@ -107,34 +108,36 @@ h1, h2, h3, h4, p { margin-top: 0; }
 
 /* Card Image Top Half */
 .card-image-top {
-    height: 45%;
+    height: 50%; /* SPLIT 50/50: Gives image significantly more vertical space */
     width: 100%;
     background: #e2e8f0;
     overflow: hidden;
 }
 .big-user-img {
-    width: 100%; height: 100%;
+    width: 100%; 
+    height: 100%;
     object-fit: cover;
-    object-position: center top;
+    /* Sets focus near the top of the photo to completely prevent head cropping */
+    object-position: center 10%; 
 }
 
 /* Card Content Bottom Half */
 .card-content-bottom {
-    height: 55%;
-    padding: 20px;
+    height: 50%; /* SPLIT 50/50 */
+    padding: 25px 25px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
-.card-content-bottom h4 { margin: 0; font-size: 1.3rem; color: #1a202c; }
-.user-role { font-size: 0.9rem; color: #718096; display: block; margin-bottom: 5px; }
-.card-rating { font-size: 0.95rem; color: #f6ad55; margin-bottom: 10px; font-weight: bold; }
+.card-content-bottom h4 { margin: 0; font-size: 1.35rem; color: #1a202c; }
+.user-role { font-size: 0.95rem; color: #718096; display: block; margin-bottom: 5px; }
+.card-rating { font-size: 0.95rem; color: #f6ad55; margin-bottom: 12px; font-weight: bold; }
 .card-rating span { color: #a0aec0; margin-left: 5px; }
 .card-content-bottom p { font-size: 0.95rem; color: #4a5568; font-style: italic; line-height: 1.5; margin: 0; flex-grow: 1; }
 
 /* Company Logo at Bottom Left */
 .card-company { display: flex; flex-direction: column; margin-top: 10px; }
-.company-label { font-size: 0.7rem; color: #a0aec0; font-weight: bold; letter-spacing: 1px; margin-bottom: 5px; }
+.company-label { font-size: 0.75rem; color: #a0aec0; font-weight: bold; letter-spacing: 1px; margin-bottom: 6px; }
 .big-company-logo { height: 35px; object-fit: contain; object-position: left; max-width: 120px; }
 .big-emoji-logo { font-size: 30px; }
 
@@ -206,7 +209,8 @@ footer { background: #1a202c; color: #a0aec0; padding: 60px 20px 20px; margin-to
     .hero { flex-direction: column; text-align: center; padding-top: 80px; }
     .hero-left, .hero-right { width: 100%; padding: 0; max-width: 100%; justify-content: center; }
     .hero-right { margin-top: 60px; padding-right: 0; }
-    .stacked-carousel { max-width: 340px; } /* Slightly smaller for phones */
+    /* Scales down slightly for mobile, but keeps the taller ratio to protect images */
+    .stacked-carousel { max-width: 340px; height: 580px; } 
     .card-middle { transform: translateX(20px) scale(0.92); }
     .card-back { transform: translateX(40px) scale(0.84); }
     .logo-wrapper { margin: 0 auto 20px; }
