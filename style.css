@@ -11,7 +11,7 @@ body {
 h1, h2, h3, h4, p { margin-top: 0; }
 
 /* -------------------------------------------
-   NEW SPLIT HERO SECTION & GEMINI BLOB
+   NEW HERO SECTION & TARGETED CLOUD BLOB
 -------------------------------------------- */
 .hero {
     position: relative;
@@ -24,85 +24,105 @@ h1, h2, h3, h4, p { margin-top: 0; }
     overflow: hidden;
 }
 
-/* The Organic Breathing Glowing Blob */
-.hero::before {
-    content: '';
-    position: absolute;
-    top: -20%; left: -10%;
-    width: 60vw; height: 120vh;
-    background: radial-gradient(circle, rgba(0,86,179,0.12) 0%, rgba(0,176,80,0.08) 40%, rgba(255,255,255,0) 70%);
-    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-    animation: morphBlob 12s ease-in-out infinite alternate;
-    z-index: 0;
-}
-@keyframes morphBlob {
-    0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: scale(1); }
-    100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: scale(1.1); }
-}
-
+/* Slides in once on page load */
 .hero-left {
     position: relative;
     z-index: 2;
     width: 45%;
     padding-right: 20px;
+    opacity: 0;
+    animation: slideInLeft 1s ease-out forwards;
 }
+@keyframes slideInLeft {
+    from { transform: translateX(-50px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
 .hero-right {
     position: relative;
     z-index: 2;
     width: 50%;
-    height: 500px;
+    max-width: 450px; /* Restricts it to a nice square box size */
 }
 
-/* Logo Slide In & Float Animation */
-@keyframes slideInFloat {
-    0% { transform: translate(-200%, 0); opacity: 0; }
-    30% { transform: translate(0, 0); opacity: 1; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
-    65% { transform: translate(0, -12px); box-shadow: 0 20px 35px rgba(0,0,0,0.3); }
-    100% { transform: translate(0, 0); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+/* The Cloud Blob perfectly behind the logo */
+.logo-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 25px;
 }
+.cloud-blob {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 240px; height: 240px;
+    background: radial-gradient(circle, rgba(0,86,179,0.15) 0%, rgba(0,176,80,0.1) 60%, rgba(255,255,255,0) 80%);
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    transform: translate(-50%, -50%);
+    animation: morphBlob 8s ease-in-out infinite alternate;
+    z-index: 0;
+}
+@keyframes morphBlob {
+    0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: translate(-50%, -50%) scale(1); }
+    100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+/* Continuous floating animation (after the slide in finishes) */
 .logo {
-    width: 150px; height: 150px;
+    position: relative;
+    z-index: 1;
+    width: 140px; height: 140px;
     object-fit: contain; background: white;
     border-radius: 50%; padding: 12px;
-    margin-bottom: 25px;
-    animation: slideInFloat 5s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    animation: floatOnly 4s ease-in-out infinite;
+}
+@keyframes floatOnly {
+    0%, 100% { transform: translateY(0); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+    50% { transform: translateY(-10px); box-shadow: 0 20px 35px rgba(0,0,0,0.2); }
 }
 
 .hero h1 { font-size: 3rem; margin-bottom: 15px; font-weight: 800; color: #1a202c; line-height: 1.2; }
 .hero p { font-size: 1.2rem; margin-bottom: 30px; color: #4a5568; }
 
 /* -------------------------------------------
-   FEEDBACK SLIDER (SOCIAL PROOF)
+   AUTO-SWIPING FEEDBACK SLIDER
 -------------------------------------------- */
-.feedback-container {
+.carousel-track {
     display: flex;
-    flex-direction: column;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* Firefox */
     gap: 20px;
-    height: 100%;
-    overflow-y: auto;
-    padding: 20px;
-    -ms-overflow-style: none; scrollbar-width: none;
+    padding: 20px 10px;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
 }
-.feedback-container::-webkit-scrollbar { display: none; }
+.carousel-track::-webkit-scrollbar { display: none; /* Chrome */ }
 
 .feedback-card {
+    flex: 0 0 100%; /* Shows exactly one card at a time for swiping */
+    scroll-snap-align: center;
     background: #ffffff;
     border: 1px solid #e2e8f0;
     border-radius: 16px;
-    padding: 25px;
+    padding: 35px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     transition: transform 0.3s;
+    min-height: 320px; /* Makes it look square-ish */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
-.feedback-card:hover { transform: translateX(-10px); border-color: #0056b3; box-shadow: 0 15px 35px rgba(0,86,179,0.1); }
-.feedback-header { display: flex; align-items: center; margin-bottom: 15px; }
-.user-img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; margin-right: 15px; border: 2px solid #e2e8f0; }
-.user-info h4 { margin: 0; font-size: 1.1rem; color: #1a202c; }
-.user-info span { font-size: 0.85rem; color: #718096; }
-.company-logo { height: 30px; margin-left: auto; object-fit: contain; max-width: 80px; }
-.emoji-logo { font-size: 24px; margin-left: auto; }
-.rating { font-size: 0.9rem; color: #f6ad55; margin-bottom: 10px; font-weight: bold; }
+.feedback-card:hover { border-color: #0056b3; box-shadow: 0 15px 35px rgba(0,86,179,0.1); }
+.feedback-header { display: flex; align-items: center; margin-bottom: 20px; }
+.user-img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; margin-right: 15px; border: 2px solid #e2e8f0; }
+.user-info h4 { margin: 0; font-size: 1.2rem; color: #1a202c; }
+.user-info span { font-size: 0.9rem; color: #718096; }
+.company-logo { height: 35px; margin-left: auto; object-fit: contain; max-width: 80px; }
+.emoji-logo { font-size: 28px; margin-left: auto; }
+.rating { font-size: 1rem; color: #f6ad55; margin-bottom: 15px; font-weight: bold; }
 .rating span { color: #a0aec0; margin-left: 5px; }
-.feedback-card p { font-size: 0.95rem; color: #4a5568; font-style: italic; line-height: 1.5; margin: 0; }
+.feedback-card p { font-size: 1.05rem; color: #4a5568; font-style: italic; line-height: 1.6; margin: 0; }
 
 /* -------------------------------------------
    SECTIONS: TRUSTED BY & STATS
@@ -173,9 +193,8 @@ footer { background: #1a202c; color: #a0aec0; padding: 60px 20px 20px; margin-to
 /* Responsive Mobile Layout */
 @media (max-width: 850px) {
     .hero { flex-direction: column; text-align: center; padding-top: 80px; }
-    .hero::before { width: 100vw; height: 100vh; top: 0; left: 0; }
-    .hero-left, .hero-right { width: 100%; padding: 0; }
-    .hero-right { margin-top: 40px; height: 400px; }
-    .logo { margin: 0 auto 20px; }
+    .hero-left, .hero-right { width: 100%; padding: 0; max-width: 100%; }
+    .hero-right { margin-top: 40px; }
+    .logo-wrapper { margin: 0 auto 20px; }
     .stats-section { flex-direction: column; gap: 30px; }
 }
