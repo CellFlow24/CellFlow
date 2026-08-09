@@ -9,17 +9,23 @@
 </head>
 <body>
 
-    <!-- HERO SECTION (Split Layout & Glowing Blob) -->
+    <!-- HERO SECTION -->
     <header class="hero">
-        <div class="hero-left reveal">
-            <img src="logo.png" alt="Cellflow Logo" class="logo">
+        <!-- The Left Side now slides in ONLY once -->
+        <div class="hero-left">
+            <!-- New Logo Wrapper for the Cloud Blob -->
+            <div class="logo-wrapper">
+                <div class="cloud-blob"></div>
+                <img src="logo.png" alt="Cellflow Logo" class="logo">
+            </div>
             <h1>Is your business still run by a ledger?</h1>
             <p>Upgrade to simple, fast, and secure apps designed for your daily needs.</p>
             <a href="#projects" class="btn-primary">Explore Our Apps</a>
         </div>
         
-        <div class="hero-right reveal">
-            <div class="feedback-container">
+        <!-- The Right Side with Auto-Swiping Cards -->
+        <div class="hero-right">
+            <div class="carousel-track" id="feedbackTrack">
                 <!-- Feedback 1: Agropoti -->
                 <div class="feedback-card">
                     <div class="feedback-header">
@@ -69,7 +75,6 @@
     <section class="trusted-by reveal">
         <p>Trusted by fast-growing businesses & startups across Kolkata</p>
         <div class="trusted-logos">
-            <!-- You can replace these text placeholders with grey logos later -->
             <span>Agropoti</span>
             <span>syz foundation</span>
             <span>Local PG Networks</span>
@@ -129,12 +134,11 @@
         <form id="leadForm">
             <input type="text" name="name" placeholder="Your Name" required>
             <input type="email" name="email" placeholder="Your Email (Required)" required>
-            <!-- New Dropdown Menu -->
+            <!-- UPDATED DROPDOWN OPTIONS -->
             <select name="inquiryType" required>
                 <option value="" disabled selected>How can we help you?</option>
                 <option value="Request New Custom App">Request New Custom App</option>
-                <option value="Inquiry about Billflow">Inquiry about Billflow</option>
-                <option value="Inquiry about Mess Khata">Inquiry about Mess Khata</option>
+                <option value="Inquiry about Apps">Inquiry about Apps</option>
                 <option value="Technical Support/Complaint">Technical Support or Complaint</option>
             </select>
             <textarea name="message" placeholder="Tell us more details..." required></textarea>
@@ -162,7 +166,6 @@
     </footer>
 
     <!-- MODALS (The Pop-up Windows with Sliders) -->
-    
     <!-- Billflow Modal -->
     <div id="billflowModal" class="modal">
         <div class="modal-content">
