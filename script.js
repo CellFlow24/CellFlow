@@ -21,35 +21,40 @@ function revealElements() {
 window.addEventListener('scroll', revealElements);
 revealElements();
 
-// --- NEW: Auto-Swiping Feedback Carousel ---
-const feedbackTrack = document.getElementById('feedbackTrack');
-let autoScrollInterval;
+// --- NEW: Toptal-Style Stacked Carousel Logic ---
+const cards = document.querySelectorAll('.stacked-card');
+let classArray = ['card-front', 'card-middle', 'card-back'];
+let carouselInterval;
 
-function startCarousel() {
-    autoScrollInterval = setInterval(() => {
-        // If we reached the end, scroll back to the start smoothly
-        if (feedbackTrack.scrollLeft + feedbackTrack.clientWidth >= feedbackTrack.scrollWidth - 10) {
-            feedbackTrack.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-            // Scroll right by exactly one card width
-            feedbackTrack.scrollBy({ left: feedbackTrack.clientWidth, behavior: 'smooth' });
-        }
-    }, 3500); // Swipes every 3.5 seconds
+function rotateCards() {
+    // Takes the last class (card-back) and moves it to the front of the array
+    const last = classArray.pop();
+    classArray.unshift(last);
+    
+    // Apply the new class order to the HTML elements
+    cards.forEach((card, index) => {
+        card.className = 'stacked-card ' + classArray[index];
+    });
 }
 
-function stopCarousel() {
-    clearInterval(autoScrollInterval);
+function startStackedCarousel() {
+    carouselInterval = setInterval(rotateCards, 3500);
 }
 
-if (feedbackTrack) {
+function stopStackedCarousel() {
+    clearInterval(carouselInterval);
+}
+
+const carouselContainer = document.getElementById('feedbackCarousel');
+if (carouselContainer) {
     // Pause animation when mouse hovers or finger touches the screen
-    feedbackTrack.addEventListener('mouseenter', stopCarousel);
-    feedbackTrack.addEventListener('mouseleave', startCarousel);
-    feedbackTrack.addEventListener('touchstart', stopCarousel);
-    feedbackTrack.addEventListener('touchend', startCarousel);
+    carouselContainer.addEventListener('mouseenter', stopStackedCarousel);
+    carouselContainer.addEventListener('mouseleave', startStackedCarousel);
+    carouselContainer.addEventListener('touchstart', stopStackedCarousel);
+    carouselContainer.addEventListener('touchend', startStackedCarousel);
     
     // Start it when the page loads
-    startCarousel();
+    startStackedCarousel();
 }
 
 // Modal System (Pop-ups)
