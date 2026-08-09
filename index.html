@@ -9,21 +9,78 @@
 </head>
 <body>
 
-    <!-- HERO SECTION (Fluid CSS Background) -->
+    <!-- HERO SECTION (Split Layout & Glowing Blob) -->
     <header class="hero">
-        <div class="hero-content">
+        <div class="hero-left reveal">
             <img src="logo.png" alt="Cellflow Logo" class="logo">
             <h1>Is your business still run by a ledger?</h1>
             <p>Upgrade to simple, fast, and secure apps designed for your daily needs.</p>
-            <a href="#projects" class="btn-primary">View Our Apps</a>
+            <a href="#projects" class="btn-primary">Explore Our Apps</a>
+        </div>
+        
+        <div class="hero-right reveal">
+            <div class="feedback-container">
+                <!-- Feedback 1: Agropoti -->
+                <div class="feedback-card">
+                    <div class="feedback-header">
+                        <img src="feedback/dokal.png" alt="Subbrata Dokal" class="user-img">
+                        <div class="user-info">
+                            <h4>Subbrata Dokal</h4>
+                            <span>Founder, Agropoti</span>
+                        </div>
+                        <img src="feedback/dokal_logo.png" alt="Agropoti Logo" class="company-logo">
+                    </div>
+                    <div class="rating">⭐⭐⭐⭐⭐ <span>4.8/5.0</span></div>
+                    <p>"Cellflow transformed how we operate. They built a custom, comprehensive business tracking application that is incredibly intuitive and perfectly tailored to our daily workflow. Highly recommended."</p>
+                </div>
+
+                <!-- Feedback 2: syz foundation -->
+                <div class="feedback-card">
+                    <div class="feedback-header">
+                        <img src="feedback/khadi.png" alt="Khadimul Islam" class="user-img">
+                        <div class="user-info">
+                            <h4>Khadimul Islam</h4>
+                            <span>Founder, syz foundation</span>
+                        </div>
+                        <img src="feedback/khadi_logo.png" alt="syz foundation Logo" class="company-logo">
+                    </div>
+                    <div class="rating">⭐⭐⭐⭐⭐ <span>5.0/5.0</span></div>
+                    <p>"The team at Cellflow delivered a seamless Computer-Based Testing (CBT) platform for us. From user registration to automated result generation, the entire system is flawless and easy to manage."</p>
+                </div>
+
+                <!-- Feedback 3: Mess Khata -->
+                <div class="feedback-card">
+                    <div class="feedback-header">
+                        <img src="feedback/asib.png" alt="SK MD Asib" class="user-img">
+                        <div class="user-info">
+                            <h4>SK MD Asib</h4>
+                            <span>PG Owner & Manager</span>
+                        </div>
+                        <div class="company-logo emoji-logo">🏠</div>
+                    </div>
+                    <div class="rating">⭐⭐⭐⭐<span>⭐</span> <span>4.6/5.0</span></div>
+                    <p>"Mess Khata has completely eliminated the headache of manual ledger management. Tracking payments and expenses is now incredibly fast and transparent. A must-have for any PG owner."</p>
+                </div>
+            </div>
         </div>
     </header>
 
+    <!-- TRUSTED BY SECTION -->
+    <section class="trusted-by reveal">
+        <p>Trusted by fast-growing businesses & startups across Kolkata</p>
+        <div class="trusted-logos">
+            <!-- You can replace these text placeholders with grey logos later -->
+            <span>Agropoti</span>
+            <span>syz foundation</span>
+            <span>Local PG Networks</span>
+            <span>Retail Partners</span>
+        </div>
+    </section>
+
     <!-- PROJECTS SECTION -->
-    <section id="projects" class="projects-section fade-in-up">
+    <section id="projects" class="projects-section reveal">
         <h2>Our Products</h2>
         <div class="card-container">
-            
             <!-- Billflow Card -->
             <div class="project-card" onclick="openModal('billflowModal')">
                 <div class="card-header">
@@ -33,7 +90,6 @@
                 <div class="image-wrapper">
                     <img src="BillFlow/Dasbord%20Dextop.png" alt="Billflow Dashboard">
                 </div>
-                <!-- Sleek new button with an arrow -->
                 <button class="btn-secondary">Explore App <span>&#8594;</span></button>
             </div>
 
@@ -46,30 +102,70 @@
                 <div class="image-wrapper">
                     <img src="Mess%20Khata/Mess%20Khata%20Home.png" alt="Mess Khata Home">
                 </div>
-                <!-- Sleek new button with an arrow -->
                 <button class="btn-secondary">Explore App <span>&#8594;</span></button>
             </div>
         </div>
     </section>
-    
+
+    <!-- BY THE NUMBERS SECTION -->
+    <section class="stats-section reveal">
+        <div class="stat-box">
+            <h3>10,000+</h3>
+            <p>Bills Generated</p>
+        </div>
+        <div class="stat-box">
+            <h3>Zero</h3>
+            <p>Paper Wasted</p>
+        </div>
+        <div class="stat-box">
+            <h3>100%</h3>
+            <p>Data Security</p>
+        </div>
+    </section>
+
     <!-- CONTACT FORM SECTION -->
-    <section id="contact" class="contact-section fade-in-up">
-        <h2>Request an App or Custom Build</h2>
+    <section id="contact" class="contact-section reveal">
+        <h2>Request an App or Support</h2>
         <form id="leadForm">
             <input type="text" name="name" placeholder="Your Name" required>
             <input type="email" name="email" placeholder="Your Email (Required)" required>
-            <textarea name="message" placeholder="Tell us what you need..." required></textarea>
+            <!-- New Dropdown Menu -->
+            <select name="inquiryType" required>
+                <option value="" disabled selected>How can we help you?</option>
+                <option value="Request New Custom App">Request New Custom App</option>
+                <option value="Inquiry about Billflow">Inquiry about Billflow</option>
+                <option value="Inquiry about Mess Khata">Inquiry about Mess Khata</option>
+                <option value="Technical Support/Complaint">Technical Support or Complaint</option>
+            </select>
+            <textarea name="message" placeholder="Tell us more details..." required></textarea>
             <button type="submit" class="btn-primary">Send Request</button>
         </form>
         <div id="formStatus"></div>
     </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <h3>Cellflow</h3>
+                <p>Business Software Simplified.</p>
+                <p>Built in Kolkata.</p>
+            </div>
+            <div class="footer-right">
+                <a href="#projects">Products</a>
+                <a href="#contact">Contact Support</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Cellflow. All rights reserved.</p>
+        </div>
+    </footer>
 
     <!-- MODALS (The Pop-up Windows with Sliders) -->
     
     <!-- Billflow Modal -->
     <div id="billflowModal" class="modal">
         <div class="modal-content">
-            <!-- Updated: Removed the X, kept only sleek Back text -->
             <span class="close-btn" onclick="closeModal('billflowModal')">Back</span>
             <h2>Billflow Previews</h2>
             <div class="slider-wrapper">
@@ -96,7 +192,6 @@
     <!-- Mess Khata Modal -->
     <div id="messkhataModal" class="modal">
         <div class="modal-content">
-            <!-- Updated: Removed the X, kept only sleek Back text -->
             <span class="close-btn" onclick="closeModal('messkhataModal')">Back</span>
             <h2>Mess Khata Previews</h2>
             <div class="slider-wrapper">
