@@ -36,14 +36,14 @@
                     </div>
                 </div>
 
-                <!-- Feedback 2: syz foundation -->
+                <!-- Feedback 2: syz foundation (UPDATED REVIEW TEXT) -->
                 <div class="stacked-card card-middle">
                     <div class="card-image-top"><img src="feedback/khadi.png" alt="Khadimul Islam" class="big-user-img"></div>
                     <div class="floating-company-badge"><img src="feedback/khadi_logo.png" alt="syz foundation Logo"></div>
                     <div class="card-content-bottom">
                         <h4>Khadimul Islam</h4><span class="user-role">Founder, syz foundation</span>
                         <div class="card-rating">⭐⭐⭐⭐⭐ <span>5.0/5.0</span></div>
-                        <p>"The team at Cellflow delivered a seamless Computer-Based Testing (CBT) platform for us. From user registration to automated result generation, the entire system is flawless."</p>
+                        <p>"We needed a robust application for our mock exams. Cellflow built a highly responsive Computer-Based Testing platform that handles user registration, live testing, and instant result generation flawlessly."</p>
                     </div>
                 </div>
 
@@ -58,9 +58,8 @@
                     </div>
                 </div>
 
-                <!-- ==========================================
-                     TEMPLATE: COPY THIS TO ADD A NEW FEEDBACK 
-                     (Paste above this line and it will auto-loop!)
+                <!-- TEMPLATE: COPY THIS TO ADD A NEW FEEDBACK -->
+                <!--
                 <div class="stacked-card card-back">
                     <div class="card-image-top"><img src="feedback/YOUR_IMAGE.png" class="big-user-img"></div>
                     <div class="floating-company-badge"><img src="feedback/YOUR_LOGO.png"></div>
@@ -70,13 +69,13 @@
                         <p>"Your amazing review here..."</p>
                     </div>
                 </div>
-                =========================================== -->
+                -->
 
             </div>
         </div>
     </header>
 
-    <!-- TRUSTED BY SECTION (Now with Tech Dot-Grid) -->
+    <!-- TRUSTED BY SECTION -->
     <section class="trusted-by reveal">
         <p>Trusted by fast-growing businesses & startups across Kolkata</p>
         <div class="trusted-logos">
@@ -87,7 +86,7 @@
         </div>
     </section>
 
-    <!-- PROJECTS SECTION (Now with Premium Gradient & Glassmorphism) -->
+    <!-- PROJECTS SECTION -->
     <section id="projects" class="projects-section reveal">
         <h2>Our Products</h2>
         <div class="card-container">
@@ -100,7 +99,6 @@
                 </div>
                 <div class="image-wrapper">
                     <img src="BillFlow/Dasbord%20Dextop.png" alt="Billflow Dashboard">
-                    <!-- NEW: Glassmorphism Tech Specs on Hover -->
                     <div class="glass-specs">
                         <ul>
                             <li>⚡ Real-time Cloud Sync</li>
@@ -120,7 +118,6 @@
                 </div>
                 <div class="image-wrapper">
                     <img src="Mess%20Khata/Mess%20Khata%20Home.png" alt="Mess Khata Home">
-                    <!-- NEW: Glassmorphism Tech Specs on Hover -->
                     <div class="glass-specs">
                         <ul>
                             <li>⚡ Interactive Chat System</li>
@@ -132,8 +129,8 @@
                 <button class="btn-secondary">Explore App <span>&#8594;</span></button>
             </div>
 
-            <!-- ==========================================
-                 TEMPLATE: COPY THIS TO ADD A NEW APP 
+            <!-- TEMPLATE: COPY THIS TO ADD A NEW APP -->
+            <!--
             <div class="project-card" onclick="openModal('newAppModal')">
                 <div class="card-header">
                     <h3>New App Name</h3>
@@ -151,20 +148,20 @@
                 </div>
                 <button class="btn-secondary">Explore App <span>&#8594;</span></button>
             </div>
-            =========================================== -->
+            -->
 
         </div>
     </section>
 
-    <!-- BY THE NUMBERS SECTION (Updated with CBT Stats) -->
+    <!-- BY THE NUMBERS SECTION -->
     <section class="stats-section reveal">
         <div class="stat-box">
             <h3>10,000+</h3>
             <p>Bills Generated</p>
         </div>
         <div class="stat-box">
-            <h3>Seamless</h3>
-            <p>CBT Exam Delivery</p>
+            <h3>Scalable</h3>
+            <p>CBT Platforms</p>
         </div>
         <div class="stat-box">
             <h3>100%</h3>
@@ -172,7 +169,7 @@
         </div>
     </section>
 
-    <!-- CONTACT FORM SECTION (With Cloud Blast Magic) -->
+    <!-- CONTACT FORM SECTION -->
     <section id="contact" class="contact-section reveal">
         <h2>Request an App or Support</h2>
         
@@ -192,14 +189,18 @@
             </form>
         </div>
 
-        <!-- The Cloud Blast Success State (Hidden until submit) -->
+        <!-- NEW: The Professional Cloud Blob Success State -->
         <div id="successState" class="blast-container" style="display:none;">
-            <div class="blast-circle" id="blastCircle"></div>
+            <div class="success-blob" id="successBlob"></div>
             <div class="success-content" id="successContent">
-                <div class="success-icon">✨</div>
-                <h3>Thank you for your feedback!</h3>
+                <!-- Clean SVG Checkmark -->
+                <svg class="success-icon-svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <h3>Request Received</h3>
                 <p>Team Cellflow will be in touch shortly.</p>
-                <button class="btn-secondary" onclick="resetForm()">Send Another</button>
+                <button class="btn-secondary" onclick="resetForm()" style="max-width: 200px; margin: 20px auto 0;">Send Another</button>
             </div>
         </div>
 
@@ -223,9 +224,9 @@
         </div>
     </footer>
 
-    <!-- FLOATING CTA BUTTON -->
-    <a href="#contact" class="floating-cta">
-        <span>🚀</span> Request an App
+    <!-- FLOATING CTA BUTTON (ID added for JS hiding) -->
+    <a href="#contact" class="floating-cta" id="floatingCta">
+        Request an App
     </a>
 
     <!-- MODALS -->
@@ -264,8 +265,8 @@
         </div>
     </div>
 
-    <!-- ==========================================
-         TEMPLATE: COPY THIS TO ADD A NEW MODAL 
+    <!-- TEMPLATE: COPY THIS TO ADD A NEW MODAL -->
+    <!--
     <div id="newAppModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('newAppModal')">Back</span>
@@ -280,7 +281,7 @@
             </div>
         </div>
     </div>
-    =========================================== -->
+    -->
 
     <script src="script.js"></script>
 </body>
