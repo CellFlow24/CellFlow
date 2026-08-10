@@ -35,7 +35,6 @@ function rotateCards() {
 }
 
 function startStackedCarousel() {
-    // Only run if the cards actually exist on the page
     if (cards.length > 0) {
         carouselInterval = setInterval(rotateCards, 3500);
     }
@@ -49,6 +48,25 @@ if (carouselContainer) {
     carouselContainer.addEventListener('touchstart', stopStackedCarousel);
     carouselContainer.addEventListener('touchend', startStackedCarousel);
     startStackedCarousel();
+}
+
+// --- NEW: Hide Floating CTA when Form is Visible ---
+const ctaBtn = document.getElementById('floatingCta');
+const contactSection = document.getElementById('contact');
+
+if (ctaBtn && contactSection) {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Form is in view, hide the button
+                ctaBtn.classList.add('hidden-cta');
+            } else {
+                // Form is out of view, show the button
+                ctaBtn.classList.remove('hidden-cta');
+            }
+        });
+    }, { threshold: 0.15 }); // Triggers when 15% of the contact section is visible
+    observer.observe(contactSection);
 }
 
 // Modal System (Pop-ups)
@@ -65,7 +83,7 @@ function slideGallery(sliderId, direction) {
     slider.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
 }
 
-// Google Sheets Form Submission & CLOUD BLAST ANIMATION
+// Google Sheets Form Submission & PROFESSIONAL CLOUD BLOB ANIMATION
 document.getElementById('leadForm').addEventListener('submit', function(e) {
     e.preventDefault(); 
     
@@ -86,13 +104,13 @@ document.getElementById('leadForm').addEventListener('submit', function(e) {
     })
     .then(response => response.text())
     .then(data => {
-        // --- TRIGGER THE MAGICAL CLOUD BLAST ---
+        // --- TRIGGER THE PROFESSIONAL CLOUD BLOB ---
         document.getElementById('formContainer').style.display = 'none';
         document.getElementById('successState').style.display = 'block';
         
         // Slight delay to allow display:block to register before animating
         setTimeout(() => {
-            document.getElementById('blastCircle').classList.add('active');
+            document.getElementById('successBlob').classList.add('active');
             document.getElementById('successContent').classList.add('active');
         }, 50);
 
@@ -106,9 +124,8 @@ document.getElementById('leadForm').addEventListener('submit', function(e) {
     });
 });
 
-// Function to reset the form if the user wants to send another message
 function resetForm() {
-    document.getElementById('blastCircle').classList.remove('active');
+    document.getElementById('successBlob').classList.remove('active');
     document.getElementById('successContent').classList.remove('active');
     
     setTimeout(() => {
