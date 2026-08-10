@@ -45,14 +45,18 @@ h1, h2, h3, h4, p { margin-top: 0; }
 .card-content-bottom p { font-size: 1rem; color: #4a5568; font-style: italic; line-height: 1.5; margin: 0; }
 
 /* -------------------------------------------
-   TRUSTED BY (TECH DOT-GRID BACKGROUND)
+   TRUSTED BY (PREMIUM FADING GRID)
 -------------------------------------------- */
 .trusted-by { 
     text-align: center; padding: 40px 20px; border-bottom: 1px solid #e2e8f0;
     background-color: #f8fafc; 
-    /* The ultra-modern faint dot grid */
-    background-image: radial-gradient(#cbd5e0 1px, transparent 1px);
-    background-size: 20px 20px;
+    /* Soft grid pattern */
+    background-image: linear-gradient(rgba(203, 213, 224, 0.4) 1px, transparent 1px), 
+                      linear-gradient(90deg, rgba(203, 213, 224, 0.4) 1px, transparent 1px);
+    background-size: 30px 30px;
+    /* This makes the grid fade smoothly at the top and bottom */
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
 }
 .trusted-by p { font-size: 0.9rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; margin-bottom: 20px; }
 .trusted-logos { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; color: #94a3b8; font-weight: bold; font-size: 1.2rem; }
@@ -60,7 +64,6 @@ h1, h2, h3, h4, p { margin-top: 0; }
 /* -------------------------------------------
    OUR PRODUCTS (GLASSMORPHISM & GRADIENT)
 -------------------------------------------- */
-/* Premium gradient background to make cards pop */
 .projects-section { background: linear-gradient(135deg, #ffffff 0%, #f0f4f8 100%); }
 .card-container { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
 .project-card { background: #ffffff; padding: 35px 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); cursor: pointer; transition: all 0.4s; width: 100%; max-width: 360px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid rgba(226, 232, 240, 0.8); position: relative; }
@@ -71,12 +74,10 @@ h1, h2, h3, h4, p { margin-top: 0; }
 .image-wrapper { margin: 20px 0; padding: 10px; transition: transform 0.4s ease; position: relative; overflow: hidden; border-radius: 12px; }
 .project-card img { max-width: 100%; height: auto; border-radius: 12px; max-height: 220px; object-fit: contain; box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
 
-/* The Glassmorphism Hover Overlay */
 .glass-specs {
     position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(255, 255, 255, 0.65); /* Frosted white */
-    backdrop-filter: blur(8px); /* The magical blur effect */
-    -webkit-backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.65); 
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
     display: flex; flex-direction: column; justify-content: center;
     transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     padding: 20px; text-align: left;
@@ -98,40 +99,48 @@ h1, h2, h3, h4, p { margin-top: 0; }
 .project-card:hover .btn-secondary { background-color: #0056b3; color: white; border-color: #0056b3; }
 .project-card:hover .btn-secondary span { transform: translateX(6px); }
 
-/* FLOATING CTA BUTTON */
+/* FLOATING CTA BUTTON & HIDE LOGIC */
 .floating-cta {
     position: fixed; bottom: 30px; right: 30px; z-index: 999;
     background: #00b050; color: white; padding: 16px 28px;
     border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.1rem;
-    box-shadow: 0 10px 25px rgba(0,176,80,0.4); transition: 0.3s;
-    display: flex; align-items: center; gap: 8px;
+    box-shadow: 0 10px 25px rgba(0,176,80,0.4); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex; align-items: center; justify-content: center;
 }
-.floating-cta:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 15px 35px rgba(0,176,80,0.5); }
-
+.floating-cta:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,176,80,0.5); }
+/* Triggered by JS when form is visible */
+.floating-cta.hidden-cta { opacity: 0; visibility: hidden; transform: translateY(20px) scale(0.9); pointer-events: none; }
 
 section { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
 h2 { font-size: 2.2rem; color: #1a202c; margin-bottom: 40px; text-align: center; font-weight: 800;}
 
-/* Contact Form & Cloud Blast Magic */
+/* Contact Form & Cloud Blob Success Magic */
 .contact-section { text-align: center; min-height: 500px; display: flex; flex-direction: column; justify-content: center; }
 form { display: flex; flex-direction: column; gap: 20px; max-width: 500px; margin: 0 auto; background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; position: relative; z-index: 2; }
 input, select, textarea { padding: 16px; border: 1px solid #cbd5e0; border-radius: 10px; font-size: 1rem; font-family: inherit; transition: 0.3s; background: #f8fafc; color: #2d3748; }
 input:focus, select:focus, textarea:focus { outline: none; border-color: #0056b3; background: white; box-shadow: 0 0 0 3px rgba(0,86,179,0.1); }
 textarea { resize: vertical; min-height: 140px; }
 
-/* The Blast Animation */
 .blast-container { position: relative; width: 100%; max-width: 500px; margin: 0 auto; padding: 60px 20px; text-align: center; overflow: hidden; border-radius: 20px; background: white; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;}
-.blast-circle {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);
-    width: 50px; height: 50px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(0,86,179,0.2) 0%, rgba(0,176,80,0.2) 100%);
-    z-index: 1; transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1); opacity: 0;
+
+/* NEW: The Professional Success Cloud Blob */
+.success-blob {
+    position: absolute; top: 50%; left: 50%;
+    width: 250px; height: 250px;
+    background: linear-gradient(135deg, rgba(0,86,179,0.08), rgba(0,176,80,0.12));
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    transform: translate(-50%, -50%);
+    animation: morphBlob 6s ease-in-out infinite alternate;
+    z-index: 0; opacity: 0; transition: opacity 0.6s ease;
 }
-.blast-circle.active { transform: translate(-50%, -50%) scale(25); opacity: 1; }
-.success-content { position: relative; z-index: 2; opacity: 0; transform: translateY(20px); transition: all 0.5s ease 0.4s; }
+.success-blob.active { opacity: 1; }
+
+.success-content { position: relative; z-index: 2; opacity: 0; transform: translateY(20px); transition: all 0.5s ease 0.4s; display: flex; flex-direction: column; align-items: center;}
 .success-content.active { opacity: 1; transform: translateY(0); }
-.success-icon { font-size: 50px; margin-bottom: 10px; }
+.success-icon-svg { width: 60px; height: 60px; stroke: #00b050; stroke-width: 2; fill: none; margin-bottom: 15px; display: block; margin: 0 auto 15px auto;}
 .success-content h3 { font-size: 1.8rem; color: #0056b3; margin-bottom: 10px; }
+.success-content p { color: #4a5568; }
+
 
 /* Footer */
 footer { background: #1a202c; color: #a0aec0; padding: 60px 20px 20px; margin-top: 40px; }
@@ -166,6 +175,5 @@ footer { background: #1a202c; color: #a0aec0; padding: 60px 20px 20px; margin-to
     .card-back { transform: translateX(40px) scale(0.84); }
     .logo-wrapper { margin: 0 auto 20px; }
     .stats-section { flex-direction: column; gap: 30px; }
-    /* Mobile adjust for floating button */
-    .floating-cta { bottom: 20px; right: 20px; padding: 12px 20px; font-size: 1rem; }
+    .floating-cta { bottom: 20px; right: 20px; padding: 14px 22px; font-size: 1rem; }
 }
