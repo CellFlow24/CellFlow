@@ -50,7 +50,7 @@ if (carouselContainer) {
     startStackedCarousel();
 }
 
-// --- NEW: Hide Floating CTA when Form is Visible ---
+// --- Hide Floating CTA when Form is Visible ---
 const ctaBtn = document.getElementById('floatingCta');
 const contactSection = document.getElementById('contact');
 
@@ -58,14 +58,12 @@ if (ctaBtn && contactSection) {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // Form is in view, hide the button
                 ctaBtn.classList.add('hidden-cta');
             } else {
-                // Form is out of view, show the button
                 ctaBtn.classList.remove('hidden-cta');
             }
         });
-    }, { threshold: 0.15 }); // Triggers when 15% of the contact section is visible
+    }, { threshold: 0.15 }); 
     observer.observe(contactSection);
 }
 
@@ -104,11 +102,9 @@ document.getElementById('leadForm').addEventListener('submit', function(e) {
     })
     .then(response => response.text())
     .then(data => {
-        // --- TRIGGER THE PROFESSIONAL CLOUD BLOB ---
         document.getElementById('formContainer').style.display = 'none';
         document.getElementById('successState').style.display = 'block';
         
-        // Slight delay to allow display:block to register before animating
         setTimeout(() => {
             document.getElementById('successBlob').classList.add('active');
             document.getElementById('successContent').classList.add('active');
@@ -131,5 +127,5 @@ function resetForm() {
     setTimeout(() => {
         document.getElementById('successState').style.display = 'none';
         document.getElementById('formContainer').style.display = 'block';
-    }, 400); // Wait for fade out
+    }, 400); 
 }
