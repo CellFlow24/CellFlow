@@ -123,15 +123,19 @@ textarea { resize: vertical; min-height: 140px; }
 
 .blast-container { position: relative; width: 100%; max-width: 500px; margin: 0 auto; padding: 60px 20px; text-align: center; overflow: hidden; border-radius: 20px; background: white; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;}
 
-/* NEW: The Professional Success Cloud Blob */
+/* NEW: The Professional Success Cloud Blob (Top-Heavy Header Design) */
 .success-blob {
-    position: absolute; top: 50%; left: 50%;
-    width: 250px; height: 250px;
+    position: absolute; 
+    top: 20%; /* Anchors the center higher up */
+    left: 50%;
+    width: 150%; /* Stretches perfectly past the left and right edges */
+    height: 450px; /* Pulls the wavy bottom down right behind the text */
     background: linear-gradient(135deg, rgba(0,86,179,0.08), rgba(0,176,80,0.12));
     border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-    transform: translate(-50%, -50%);
-    animation: morphBlob 6s ease-in-out infinite alternate;
-    z-index: 0; opacity: 0; transition: opacity 0.6s ease;
+    animation: morphBlob 6s ease-in-out infinite alternate; /* Keeps your exact animation */
+    z-index: 0; 
+    opacity: 0; 
+    transition: opacity 0.6s ease;
 }
 .success-blob.active { opacity: 1; }
 
