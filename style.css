@@ -45,68 +45,66 @@ h1, h2, h3, h4, p { margin-top: 0; }
 .card-content-bottom p { font-size: 1rem; color: #4a5568; font-style: italic; line-height: 1.5; margin: 0; }
 
 /* -------------------------------------------
-   PREMIUM 3D BADGE TICKER
+   PREMIUM 3D STACKED BADGES (Trusted By)
 -------------------------------------------- */
-.trusted-ticker-section { 
-    background-color: #f8fafc; /* Slightly off-white so the white badges pop */
-    padding: 50px 0; 
+.trusted-section { 
+    background-color: #f8fafc; 
+    padding: 60px 20px; 
     border-bottom: 1px solid #e2e8f0; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     overflow: hidden; 
-    perspective: 1000px; /* Creates the 3D depth */
 }
 
-.ticker-title { 
+.trusted-title { 
     text-align: center; 
     font-size: 0.9rem; 
-    color: #4a5568; /* Much darker gray so it is easily readable */
+    color: #4a5568; 
     text-transform: uppercase; 
     letter-spacing: 2px; 
     font-weight: 700; 
-    margin-bottom: 35px; 
+    margin-bottom: 40px; 
 }
 
-.ticker-wrap { 
-    width: 100%; overflow: hidden; white-space: nowrap; 
-    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); 
-    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); 
+/* The container is shifted slightly left to visually center the 3D stack */
+.trusted-carousel-container {
+    position: relative;
+    width: 260px; 
+    height: 55px; 
+    transform: translateX(-35px); 
 }
 
-.ticker-track { 
-    display: inline-flex; align-items: center; 
-    animation: tickerLoop 25s linear infinite; 
-    transform-style: preserve-3d; 
-    gap: 30px; /* Perfect spacing between the shapes */
-    padding-left: 30px;
-}
-
-/* The actual "Small Shape" Badges */
-.ticker-badge { 
+.mini-card {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     background-color: #ffffff;
-    color: #2d3748; /* Dark, instantly readable text */
-    font-size: 1.1rem; 
-    font-weight: 700; 
-    padding: 14px 32px;
-    border-radius: 50px; /* Gives it the premium pill shape */
+    color: #2d3748;
+    font-size: 1.1rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     border: 1px solid #e2e8f0;
-    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
-    display: inline-block;
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
     cursor: default;
 }
 
-/* The 3D Hover Pop (Similar to your feedback cards) */
-.ticker-badge:hover { 
-    color: #0056b3; /* Turns your brand blue */
-    transform: translateZ(40px) scale(1.08); /* Lifts off the screen */
-    box-shadow: 0 15px 35px rgba(0, 86, 179, 0.15);
+/* Premium Hover Pop for the active front badge */
+.mini-front:hover {
+    color: #0056b3;
+    box-shadow: 0 10px 25px rgba(0, 86, 179, 0.15);
     border-color: rgba(0, 86, 179, 0.3);
 }
 
-@keyframes tickerLoop { 
-    0% { transform: translateX(0) rotateX(5deg); } 
-    50% { transform: translateX(-50%) rotateX(-5deg); }
-    100% { transform: translateX(-100%) rotateX(5deg); } 
-}
+/* The 4 states for the 3D Mini Stack */
+.mini-front  { z-index: 4; transform: translateX(0) scale(1); opacity: 1; }
+.mini-middle { z-index: 3; transform: translateX(35px) scale(0.92); opacity: 0.8; box-shadow: -5px 0 15px rgba(0,0,0,0.03); }
+.mini-back   { z-index: 2; transform: translateX(70px) scale(0.84); opacity: 0.5; box-shadow: -5px 0 15px rgba(0,0,0,0.03); }
+.mini-hidden { z-index: 1; transform: translateX(105px) scale(0.76); opacity: 0; }
 
 /* -------------------------------------------
    OUR PRODUCTS (GLASSMORPHISM & GRADIENT)
