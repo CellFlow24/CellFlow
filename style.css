@@ -45,16 +45,53 @@ h1, h2, h3, h4, p { margin-top: 0; }
 .card-content-bottom p { font-size: 1rem; color: #4a5568; font-style: italic; line-height: 1.5; margin: 0; }
 
 /* -------------------------------------------
-   PREMIUM INFINITY TICKER
+   PREMIUM 3D INFINITY TICKER
 -------------------------------------------- */
-.trusted-ticker-section { background-color: #ffffff; padding: 40px 0; border-bottom: 1px solid #f0f4f8; overflow: hidden; }
-.ticker-title { text-align: center; font-size: 0.85rem; color: #a0aec0; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-bottom: 25px; }
-.ticker-wrap { width: 100%; overflow: hidden; white-space: nowrap; -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); }
-.ticker-track { display: inline-flex; align-items: center; animation: tickerLoop 20s linear infinite; }
-.ticker-item { font-size: 1.4rem; font-weight: 700; color: #cbd5e0; margin: 0 30px; transition: color 0.3s ease; }
-.ticker-item:hover { color: #0056b3; }
+.trusted-ticker-section { 
+    background-color: #ffffff; 
+    padding: 40px 0; 
+    border-bottom: 1px solid #f0f4f8; 
+    overflow: hidden; 
+    /* Creates a 3D space for the ticker items to exist in */
+    perspective: 1000px; 
+}
+.ticker-title { 
+    text-align: center; font-size: 0.85rem; color: #a0aec0; 
+    text-transform: uppercase; letter-spacing: 2px; font-weight: 700; 
+    margin-bottom: 25px; 
+}
+.ticker-wrap { 
+    width: 100%; overflow: hidden; white-space: nowrap; 
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); 
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); 
+}
+.ticker-track { 
+    display: inline-flex; align-items: center; 
+    animation: tickerLoop 25s linear infinite; 
+    /* Preserves the 3D effect for child elements */
+    transform-style: preserve-3d; 
+}
+.ticker-item { 
+    font-size: 1.4rem; font-weight: 700; color: #cbd5e0; 
+    margin: 0 30px; 
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
+    display: inline-block;
+    cursor: default;
+}
+/* The Sweet 3D Hover Pop */
+.ticker-item:hover { 
+    color: #0056b3; 
+    transform: translateZ(30px) scale(1.1); 
+    text-shadow: 0 10px 20px rgba(0, 86, 179, 0.15);
+}
 .ticker-dot { color: #e2e8f0; font-size: 1.2rem; }
-@keyframes tickerLoop { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+/* The sliding animation now includes a subtle 3D cylinder rotation */
+@keyframes tickerLoop { 
+    0% { transform: translateX(0) rotateX(5deg); } 
+    50% { transform: translateX(-25%) rotateX(-5deg); }
+    100% { transform: translateX(-50%) rotateX(5deg); } 
+}
 
 /* -------------------------------------------
    OUR PRODUCTS (GLASSMORPHISM & GRADIENT)
