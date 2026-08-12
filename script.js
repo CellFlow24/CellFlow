@@ -50,6 +50,39 @@ if (carouselContainer) {
     startStackedCarousel();
 }
 
+// --- Mini 3D Stacked Carousel for "Trusted By" ---
+const miniCards = document.querySelectorAll('.mini-card');
+let miniClassArray = ['mini-front', 'mini-middle', 'mini-back', 'mini-hidden'];
+let miniInterval;
+
+function rotateMiniCards() {
+    const last = miniClassArray.pop();
+    miniClassArray.unshift(last);
+    miniCards.forEach((card, index) => {
+        card.className = 'mini-card ' + miniClassArray[index];
+    });
+}
+
+function startMiniCarousel() {
+    if (miniCards.length > 0) {
+        miniInterval = setInterval(rotateMiniCards, 3000); // Swipes every 3 seconds
+    }
+}
+
+function stopMiniCarousel() { 
+    clearInterval(miniInterval); 
+}
+
+const miniContainer = document.getElementById('trustedCarousel');
+if (miniContainer) {
+    // Pauses the swipe if they touch or hover over the badges
+    miniContainer.addEventListener('mouseenter', stopMiniCarousel);
+    miniContainer.addEventListener('mouseleave', startMiniCarousel);
+    miniContainer.addEventListener('touchstart', stopMiniCarousel);
+    miniContainer.addEventListener('touchend', startMiniCarousel);
+    startMiniCarousel();
+}
+
 // --- Hide Floating CTA when Form is Visible ---
 const ctaBtn = document.getElementById('floatingCta');
 const contactSection = document.getElementById('contact');
