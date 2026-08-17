@@ -114,6 +114,26 @@
                 <button class="btn-secondary">Explore App <span>&#8594;</span></button>
             </div>
 
+            <!-- Moktest Card -->
+            <div class="project-card" onclick="openModal('mocktestModal')">
+                <div class="card-header">
+                    <h3>Moktest</h3>
+                    <p>Custom CBT Platform</p>
+                </div>
+                <div class="image-wrapper">
+                    <!-- Using your exact file spelling from GitHub -->
+                    <img src="Moktest/dasbord.png" alt="Moktest Dashboard">
+                    <div class="glass-specs">
+                        <ul>
+                            <li>🖼️ Image-Supported Questions</li>
+                            <li>⏱️ Live Exam Timer Controls</li>
+                            <li>📊 Automated PDF Scoring</li>
+                        </ul>
+                    </div>
+                </div>
+                <button class="btn-secondary">Explore App <span>&#8594;</span></button>
+            </div>
+
         </div>
     </section>
 
@@ -227,6 +247,27 @@
                     <img src="Mess%20Khata/Mess%20Khata%20Admin%20Home.png" alt="Admin Home">
                 </div>
                 <button class="slide-arrow next" onclick="slideGallery('messkhata-slider', 1)">&#10095;</button>
+            </div>
+            <p class="swipe-text">Swipe or click arrows to view more</p>
+        </div>
+    </div>
+
+    <!-- Moktest Modal -->
+    <div id="mocktestModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('mocktestModal')">Back</span>
+            <h2>Moktest Previews</h2>
+            <div class="slider-wrapper">
+                <button class="slide-arrow prev" onclick="slideGallery('mocktest-slider', -1)">&#10094;</button>
+                <div class="slider" id="mocktest-slider">
+                    <!-- Pulling all your uploaded GitHub images exactly as spelled -->
+                    <img src="Moktest/login.png" alt="Login Screen">
+                    <img src="Moktest/registation.png" alt="Registration Screen">
+                    <img src="Moktest/dasbord.png" alt="Dashboard Area">
+                    <img src="Moktest/examp.png" alt="Exam Interface with Image Support">
+                    <img src="Moktest/answar.png" alt="Automated Answer Results">
+                </div>
+                <button class="slide-arrow next" onclick="slideGallery('mocktest-slider', 1)">&#10095;</button>
             </div>
             <p class="swipe-text">Swipe or click arrows to view more</p>
         </div>
