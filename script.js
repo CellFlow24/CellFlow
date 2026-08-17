@@ -23,7 +23,7 @@ revealElements();
 
 // --- Toptal-Style Stacked Carousel Logic ---
 const cards = document.querySelectorAll('.stacked-card');
-let classArray = ['card-front', 'card-middle'];
+let classArray = ['card-front', 'card-middle']; //'card-back', 'card-hidden'
 let carouselInterval;
 
 function rotateCards() {
@@ -52,7 +52,7 @@ if (carouselContainer) {
 
 // --- Mini 3D Stacked Carousel for "Trusted By" ---
 const miniCards = document.querySelectorAll('.mini-card');
-let miniClassArray = ['mini-front', 'mini-middle', 'mini-back', 'mini-hidden'];
+let miniClassArray = ['mini-front', 'mini-middle', 'mini-hidden']; //mini-back can be add
 let miniInterval;
 
 function rotateMiniCards() {
