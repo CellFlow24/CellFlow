@@ -23,7 +23,7 @@ revealElements();
 
 // --- Toptal-Style Stacked Carousel Logic ---
 const cards = document.querySelectorAll('.stacked-card');
-let classArray = ['card-front', 'card-middle', 'card-back'];
+let classArray = ['card-front', 'card-middle'];
 let carouselInterval;
 
 function rotateCards() {
