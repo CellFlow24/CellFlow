@@ -192,7 +192,11 @@ footer { background: #1a202c; color: #a0aec0; padding: 60px 20px 20px; margin-to
 .slide-arrow:hover { background: #ffffff; transform: scale(1.1); }
 .slide-arrow.prev { position: absolute; left: 10px; }
 .slide-arrow.next { position: absolute; right: 10px; }
-
+.card-hidden { 
+    z-index: 0; 
+    transform: translateX(105px) scale(0.76); 
+    opacity: 0; 
+}
 /* Responsive Mobile Layout */
 @media (max-width: 850px) {
     .hero { flex-direction: column; text-align: center; padding-top: 80px; }
