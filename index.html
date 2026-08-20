@@ -167,13 +167,18 @@
             <form id="leadForm">
                 <input type="text" name="name" placeholder="Your Name" required>
                 <input type="email" name="email" placeholder="Your Email (Required)" required>
-    
-                <select name="inquiryType" id="inquiryTypeSelect" required>
-                    <option value="" disabled selected>How can we help you?</option>
-                    <option value="Order an App">Order an App (Mess Khata, Billflow, etc.)</option>
-                    <option value="Inquiry about Apps">Inquiry about Apps</option>
-                    <option value="Technical Support/Complaint">Technical Support or Complaint</option>
-                </select>
+
+                <!-- Custom Styleable Dropdown -->
+            <div class="custom-dropdown-container">
+                <div class="custom-dropdown-selected" id="customDropdownSelected">How can we help you?</div>
+                <div class="custom-dropdown-options" id="customDropdownOptions">
+                    <div class="custom-option" data-value="Order Your App">Order Your App</div>
+                    <div class="custom-option" data-value="Inquiry about Apps">Inquiry about Apps</div>
+                    <div class="custom-option" data-value="Technical Support/Complaint">Technical Support or Complaint</div>
+                </div>
+                <!-- Hidden input stores the actual value for the form submission -->
+                <input type="hidden" name="inquiryType" id="inquiryTypeHidden" required>
+            </div>
 
                 <!-- NEW: Dynamic Product List (Hidden by default) -->
                 <div id="productContainer" style="display: none;">
