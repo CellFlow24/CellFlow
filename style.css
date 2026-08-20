@@ -297,3 +297,57 @@ footer { background: #1a202c; color: #a0aec0; padding: 60px 20px 20px; margin-to
     background: #f0f4f8;
     color: #0056b3;
 }
+
+/* --- Premium Jumping Dots Loader --- */
+.loader-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 25px 0;
+}
+
+.loader-text {
+    font-weight: 700;
+    color: #0056b3;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}
+
+.jumping-dots {
+    display: flex;
+    gap: 6px;
+    align-items: flex-end;
+    height: 15px; /* Gives room for the jump */
+}
+
+.jumping-dots .dot {
+    width: 8px;
+    height: 8px;
+    background-color: #00b050;
+    border-radius: 50%;
+    /* The animation duration and wave effect */
+    animation: waveBounce 1.2s infinite ease-in-out both;
+}
+
+/* Delaying each dot to create the "kick" wave effect */
+.jumping-dots .dot:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.jumping-dots .dot:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+.jumping-dots .dot:nth-child(3) {
+    animation-delay: 0s;
+}
+
+@keyframes waveBounce {
+    0%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-12px);
+    }
+}
