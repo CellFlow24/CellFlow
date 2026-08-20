@@ -124,10 +124,10 @@ document.getElementById('leadForm').addEventListener('submit', function(e) {
     var name = formData.get('name');
     var email = formData.get('email');
     
-    // IMPORTANT: Paste your actual Google Apps Script URL here!
+    // IMPORTANT: Make sure your actual Apps Script URL is here
     var webAppUrl = "https://script.google.com/macros/s/AKfycbxi5eKscJULcVf9ygblyu3MJqLAaHLAaqEk5_VN7DTe1e4BSOeE_gk9xvwaNkGF4mq4yQ/exec"; 
 
-    // 1. If they are ordering an app, trigger Razorpay
+    // 1. App Orders
     if (inquiryType === 'Order Your App') {
         var productName = document.getElementById('selectedProduct').value;
         var productPrice = document.getElementById('selectedProductPrice').value;
@@ -140,21 +140,20 @@ document.getElementById('leadForm').addEventListener('submit', function(e) {
         submitBtn.innerHTML = "Opening Secure Checkout...";
         submitBtn.style.opacity = "0.7";
 
-        // Razorpay Options
         var options = {
-            "key": "rzp_test_TS4mz1svkOkv0u", // Your exact Test Key
-            "amount": parseFloat(productPrice) * 100, // Razorpay needs the amount in Paise (multiply by 100)
+            "key": "rzp_test_TS4mz1svkOkv0u",
+            "amount": parseFloat(productPrice) * 100,
             "currency": "INR",
             "name": "Cellflow",
             "description": "Order: " + productName,
-            "image": "https://cellflow24.github.io/logo.png", // Uses your actual logo!
+            "image": "https://cellflow24.github.io/logo.png",
             "handler": function (response) {
-                // THIS RUNS WHEN PAYMENT IS SUCCESSFUL
                 submitBtn.innerHTML = "Payment Successful! Processing...";
                 
-                // Package the data for Google Sheets
-                formData.set('message', "Order Placed: " + productName + " | Razorpay ID: " + response.razorpay_payment_id);
-                formData.set('paymentStatus', 'Paid'); // Tag it as paid!
+                // Set the exact App Name and details into the Description column
+                formData.set('inquiryType', inquiryType);
+                formData.set('message', productName + " (Razorpay ID: " + response.razorpay_payment_id + ")");
+                formData.set('paymentStatus', 'Paid');
                 formData.set('paymentAmount', productPrice);
 
                 sendToGoogleSheets(formData, submitBtn, webAppUrl);
@@ -164,11 +163,10 @@ document.getElementById('leadForm').addEventListener('submit', function(e) {
                 "email": email
             },
             "theme": {
-                "color": "#0056b3" // Matches your Cellflow primary button color
+                "color": "#0056b3"
             },
             "modal": {
                 "ondismiss": function() {
-                    // If they close the window without paying
                     submitBtn.innerHTML = "Place an Order";
                     submitBtn.style.opacity = "1";
                 }
@@ -179,19 +177,20 @@ document.getElementById('leadForm').addEventListener('submit', function(e) {
         rzp1.open();
 
     } else {
-        // 2. If it's just a support ticket or inquiry, skip payment
+        // 2. Normal Support / Complaints
         submitBtn.innerHTML = "Sending...";
         submitBtn.style.opacity = "0.7";
         
         var originalMessage = formData.get('message');
+        formData.set('inquiryType', inquiryType);
         formData.set('message', originalMessage);
-        formData.set('paymentStatus', 'Pending'); // No payment required yet
+        formData.set('paymentStatus', 'Pending');
+        formData.set('paymentAmount', '0');
 
         sendToGoogleSheets(formData, submitBtn, webAppUrl);
     }
 });
 
-// Helper function to send data to your Apps Script
 function sendToGoogleSheets(formData, submitBtn, webAppUrl) {
     fetch(webAppUrl, {
         method: 'POST',
