@@ -167,13 +167,24 @@
             <form id="leadForm">
                 <input type="text" name="name" placeholder="Your Name" required>
                 <input type="email" name="email" placeholder="Your Email (Required)" required>
-                <select name="inquiryType" required>
+    
+                <select name="inquiryType" id="inquiryTypeSelect" required>
                     <option value="" disabled selected>How can we help you?</option>
-                    <option value="Request New Custom App">Request New Custom App</option>
+                    <option value="Order an App">Order an App (Mess Khata, Billflow, etc.)</option>
                     <option value="Inquiry about Apps">Inquiry about Apps</option>
                     <option value="Technical Support/Complaint">Technical Support or Complaint</option>
                 </select>
-                <textarea name="message" placeholder="Tell us more details..." required></textarea>
+
+                <!-- NEW: Dynamic Product List (Hidden by default) -->
+                <div id="productContainer" style="display: none;">
+                    <p class="select-prompt">Select your application:</p>
+                    <div id="productList" class="product-grid"></div>
+                    <!-- Hidden input to store what the user clicks -->
+                    <input type="hidden" name="selectedProduct" id="selectedProduct" value="">
+                </div>
+
+                <textarea name="message" id="messageBox" placeholder="Tell us more details..." required></textarea>
+    
                 <button type="submit" class="btn-primary" id="submitBtn">Send Request</button>
             </form>
         </div>
