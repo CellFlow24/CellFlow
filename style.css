@@ -221,3 +221,79 @@ footer { background: #1a202c; color: #a0aec0; padding: 60px 20px 20px; margin-to
 .prod-pricing { display: flex; align-items: center; gap: 12px; }
 .price-strike { text-decoration: line-through; color: #a0aec0; font-size: 0.95rem; font-weight: 600; }
 .price-final { color: #00b050; font-size: 1.3rem; font-weight: 800; }
+
+/* Custom Dropdown Styling */
+.custom-dropdown-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 0px; 
+}
+
+.custom-dropdown-selected {
+    padding: 16px;
+    border: 1px solid #cbd5e0;
+    border-radius: 10px;
+    font-size: 1rem;
+    background: #f8fafc;
+    color: #718096; /* Placeholder text color */
+    cursor: pointer;
+    text-align: left;
+    transition: 0.3s;
+    position: relative;
+    font-family: inherit;
+}
+
+/* The dropdown arrow icon */
+.custom-dropdown-selected::after {
+    content: "▼";
+    position: absolute;
+    right: 16px;
+    font-size: 0.8rem;
+    color: #a0aec0;
+}
+
+/* When a user has selected an option */
+.custom-dropdown-selected.has-value {
+    color: #2d3748;
+    background: white;
+    border-color: #0056b3;
+    box-shadow: 0 0 0 3px rgba(0,86,179,0.1);
+}
+
+.custom-dropdown-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #cbd5e0;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    margin-top: 5px;
+    z-index: 99;
+    display: none; /* Hidden until clicked */
+    overflow: hidden;
+}
+
+.custom-dropdown-options.open {
+    display: block;
+}
+
+.custom-option {
+    padding: 14px 16px;
+    cursor: pointer;
+    color: #2d3748;
+    border-bottom: 1px solid #f1f5f9;
+    text-align: left;
+    transition: background 0.2s;
+    font-size: 1rem;
+}
+
+.custom-option:last-child {
+    border-bottom: none;
+}
+
+.custom-option:hover {
+    background: #f0f4f8;
+    color: #0056b3;
+}
