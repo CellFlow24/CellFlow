@@ -226,7 +226,17 @@ customOptions.forEach(option => {
             
             // Fetch from G-Sheet if not already fetched
             if (!productsFetched) {
-                productList.innerHTML = '<p style="color:#718096;">Loading available apps...</p>';
+                // Injecting the premium jumping dots animation
+                productList.innerHTML = `
+                    <div class="loader-container">
+                        <span class="loader-text">Loading</span>
+                        <div class="jumping-dots">
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                `;
                 
                 fetch("https://script.google.com/macros/s/AKfycbxi5eKscJULcVf9ygblyu3MJqLAaHLAaqEk5_VN7DTe1e4BSOeE_gk9xvwaNkGF4mq4yQ/exec") // <-- MAKE SURE TO PASTE YOUR ACTUAL APP SCRIPT URL HERE
                 .then(res => res.json())
