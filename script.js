@@ -127,8 +127,7 @@ document.getElementById('leadForm').addEventListener('submit', function(e) {
     var formData = new FormData(this);
     var inquiryType = formData.get('inquiryType');
     var originalMessage = formData.get('message');
-    formData.set('message', "[Type: " + inquiryType + "] " + originalMessage);
-
+    
     fetch(webAppUrl, {
         method: 'POST',
         body: formData
