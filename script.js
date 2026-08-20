@@ -127,6 +127,20 @@ document.getElementById('leadForm').addEventListener('submit', function(e) {
     var formData = new FormData(this);
     var inquiryType = formData.get('inquiryType');
     var originalMessage = formData.get('message');
+    var selectedProduct = document.getElementById('selectedProduct').value;
+
+    // If they ordered an app, send the product name instead of the message text
+    if (inquiryType === 'Order an App') {
+        if (!selectedProduct) {
+            alert("Please select an application to order.");
+            submitBtn.innerHTML = "Place an Order";
+            submitBtn.style.opacity = "1";
+            return; // Stop submission if they didn't click a product
+        }
+        formData.set('message', "Order Placed: " + selectedProduct);
+    } else {
+        formData.set('message', originalMessage);
+    }
     
     fetch(webAppUrl, {
         method: 'POST',
@@ -161,3 +175,60 @@ function resetForm() {
         document.getElementById('formContainer').style.display = 'block';
     }, 400); 
 }
+
+const inquiryTypeSelect = document.getElementById('inquiryTypeSelect');
+const messageBox = document.getElementById('messageBox');
+const productContainer = document.getElementById('productContainer');
+const submitBtn = document.getElementById('submitBtn');
+const productList = document.getElementById('productList');
+const selectedProductInput = document.getElementById('selectedProduct');
+
+let productsFetched = false;
+
+inquiryTypeSelect.addEventListener('change', function() {
+    if (this.value === 'Order an App') {
+        // Hide Textbox, Show Products
+        messageBox.style.display = 'none';
+        messageBox.removeAttribute('required');
+        productContainer.style.display = 'block';
+        submitBtn.innerHTML = 'Place an Order';
+        
+        // Fetch from G-Sheet if not already fetched
+        if (!productsFetched) {
+            productList.innerHTML = '<p style="color:#718096;">Loading available apps...</p>';
+            
+            fetch("https://script.google.com/macros/s/AKfycbxi5eKscJULcVf9ygblyu3MJqLAaHLAaqEk5_VN7DTe1e4BSOeE_gk9xvwaNkGF4mq4yQ/exec") // <-- PASTE YOUR URL HERE
+            .then(res => res.json())
+            .then(data => {
+                productList.innerHTML = '';
+                data.forEach(item => {
+                    let div = document.createElement('div');
+                    div.className = 'product-card';
+                    div.innerHTML = `
+                        <span class="prod-name">${item.name}</span>
+                        <div class="prod-pricing">
+                            <span class="price-strike">₹${item.originalPrice}</span>
+                            <span class="price-final">₹${item.discountedPrice}</span>
+                        </div>
+                    `;
+                    // Handle selection highlighting
+                    div.onclick = function() {
+                        document.querySelectorAll('.product-card').forEach(el => el.classList.remove('selected'));
+                        this.classList.add('selected');
+                        selectedProductInput.value = `${item.name} (Price: ₹${item.discountedPrice})`;
+                    };
+                    productList.appendChild(div);
+                });
+                productsFetched = true;
+            });
+        }
+    } else {
+        // Reset to Standard Form
+        messageBox.style.display = 'block';
+        messageBox.setAttribute('required', 'true');
+        productContainer.style.display = 'none';
+        submitBtn.innerHTML = 'Send Request';
+        selectedProductInput.value = ''; // clear selection
+        document.querySelectorAll('.product-card').forEach(el => el.classList.remove('selected'));
+    }
+});
