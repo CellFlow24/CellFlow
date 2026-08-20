@@ -114,34 +114,85 @@ function slideGallery(sliderId, direction) {
     slider.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
 }
 
-// Google Sheets Form Submission & PROFESSIONAL CLOUD BLOB ANIMATION
+// --- Form Submission & Razorpay Integration ---
 document.getElementById('leadForm').addEventListener('submit', function(e) {
     e.preventDefault(); 
     
     var submitBtn = document.getElementById('submitBtn');
-    submitBtn.innerHTML = "Sending...";
-    submitBtn.style.opacity = "0.7";
-
-    var webAppUrl = "https://script.google.com/macros/s/AKfycbxi5eKscJULcVf9ygblyu3MJqLAaHLAaqEk5_VN7DTe1e4BSOeE_gk9xvwaNkGF4mq4yQ/exec"; 
-    
     var formData = new FormData(this);
-    var inquiryType = formData.get('inquiryType');
-    var originalMessage = formData.get('message');
-    var selectedProduct = document.getElementById('selectedProduct').value;
-
-    // If they ordered an app, send the product name instead of the message text
-    if (inquiryType === 'Order an App') {
-        if (!selectedProduct) {
-            alert("Please select an application to order.");
-            submitBtn.innerHTML = "Place an Order";
-            submitBtn.style.opacity = "1";
-            return; // Stop submission if they didn't click a product
-        }
-        formData.set('message', "Order Placed: " + selectedProduct);
-    } else {
-        formData.set('message', originalMessage);
-    }
+    var inquiryType = document.getElementById('inquiryTypeHidden').value;
+    var name = formData.get('name');
+    var email = formData.get('email');
     
+    // IMPORTANT: Paste your actual Google Apps Script URL here!
+    var webAppUrl = "https://script.google.com/macros/s/AKfycbxi5eKscJULcVf9ygblyu3MJqLAaHLAaqEk5_VN7DTe1e4BSOeE_gk9xvwaNkGF4mq4yQ/exec"; 
+
+    // 1. If they are ordering an app, trigger Razorpay
+    if (inquiryType === 'Order Your App') {
+        var productName = document.getElementById('selectedProduct').value;
+        var productPrice = document.getElementById('selectedProductPrice').value;
+
+        if (!productName || !productPrice) {
+            alert("Please select an application to order.");
+            return;
+        }
+
+        submitBtn.innerHTML = "Opening Secure Checkout...";
+        submitBtn.style.opacity = "0.7";
+
+        // Razorpay Options
+        var options = {
+            "key": "rzp_test_TS4mz1svkOkv0u", // Your exact Test Key
+            "amount": parseFloat(productPrice) * 100, // Razorpay needs the amount in Paise (multiply by 100)
+            "currency": "INR",
+            "name": "Cellflow",
+            "description": "Order: " + productName,
+            "image": "https://cellflow24.github.io/logo.png", // Uses your actual logo!
+            "handler": function (response) {
+                // THIS RUNS WHEN PAYMENT IS SUCCESSFUL
+                submitBtn.innerHTML = "Payment Successful! Processing...";
+                
+                // Package the data for Google Sheets
+                formData.set('message', "Order Placed: " + productName + " | Razorpay ID: " + response.razorpay_payment_id);
+                formData.set('paymentStatus', 'Paid'); // Tag it as paid!
+                formData.set('paymentAmount', productPrice);
+
+                sendToGoogleSheets(formData, submitBtn, webAppUrl);
+            },
+            "prefill": {
+                "name": name,
+                "email": email
+            },
+            "theme": {
+                "color": "#0056b3" // Matches your Cellflow primary button color
+            },
+            "modal": {
+                "ondismiss": function() {
+                    // If they close the window without paying
+                    submitBtn.innerHTML = "Place an Order";
+                    submitBtn.style.opacity = "1";
+                }
+            }
+        };
+
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+
+    } else {
+        // 2. If it's just a support ticket or inquiry, skip payment
+        submitBtn.innerHTML = "Sending...";
+        submitBtn.style.opacity = "0.7";
+        
+        var originalMessage = formData.get('message');
+        formData.set('message', originalMessage);
+        formData.set('paymentStatus', 'Pending'); // No payment required yet
+
+        sendToGoogleSheets(formData, submitBtn, webAppUrl);
+    }
+});
+
+// Helper function to send data to your Apps Script
+function sendToGoogleSheets(formData, submitBtn, webAppUrl) {
     fetch(webAppUrl, {
         method: 'POST',
         body: formData
@@ -157,6 +208,9 @@ document.getElementById('leadForm').addEventListener('submit', function(e) {
         }, 50);
 
         document.getElementById('leadForm').reset();
+        document.getElementById('customDropdownSelected').textContent = "How can we help you?";
+        document.getElementById('customDropdownSelected').classList.remove('has-value');
+        
         submitBtn.innerHTML = "Send Request";
         submitBtn.style.opacity = "1";
     })
@@ -164,7 +218,7 @@ document.getElementById('leadForm').addEventListener('submit', function(e) {
         submitBtn.innerHTML = "Error! Try Again";
         submitBtn.style.backgroundColor = "red";
     });
-});
+}
 
 function resetForm() {
     document.getElementById('successBlob').classList.remove('active');
@@ -255,8 +309,12 @@ customOptions.forEach(option => {
                         div.onclick = function() {
                             document.querySelectorAll('.product-card').forEach(el => el.classList.remove('selected'));
                             this.classList.add('selected');
-                            selectedProductInput.value = `${item.name} (Price: ₹${item.discountedPrice})`;
+                            
+                            // Save name for the sheet, save raw price for Razorpay
+                            selectedProductInput.value = item.name; 
+                            document.getElementById('selectedProductPrice').value = item.discountedPrice;
                         };
+                        
                         productList.appendChild(div);
                     });
                     productsFetched = true;
