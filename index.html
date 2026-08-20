@@ -180,12 +180,13 @@
                 <input type="hidden" name="inquiryType" id="inquiryTypeHidden" required>
             </div>
 
-                <!-- NEW: Dynamic Product List (Hidden by default) -->
+                <!-- Dynamic Product List (Hidden by default) -->
                 <div id="productContainer" style="display: none;">
                     <p class="select-prompt">Select your application:</p>
                     <div id="productList" class="product-grid"></div>
-                    <!-- Hidden input to store what the user clicks -->
+                    <!-- Hidden inputs -->
                     <input type="hidden" name="selectedProduct" id="selectedProduct" value="">
+                    <input type="hidden" id="selectedProductPrice" value="">
                 </div>
 
                 <textarea name="message" id="messageBox" placeholder="Tell us more details..." required></textarea>
@@ -289,6 +290,7 @@
         </div>
     </div>
 
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
