@@ -368,11 +368,12 @@ footer { background: #1a202c; color: #a0aec0; padding: 60px 20px 20px; margin-to
     font-size: 0.95rem;
 }
 
+/* Base State: Faded/Outline just like the Explore button */
 .btn-purchase {
     flex: 1;
-    background-color: #00b050;
-    color: white;
-    border: 2px solid #00b050;
+    background-color: transparent; 
+    color: #00b050; 
+    border: 2px solid #e2e8f0; /* Matches the Explore button's default gray border */
     border-radius: 12px;
     cursor: pointer;
     font-weight: 700;
@@ -385,15 +386,20 @@ footer { background: #1a202c; color: #a0aec0; padding: 60px 20px 20px; margin-to
     gap: 6px;
 }
 
-.btn-purchase:hover {
-    background-color: #008a3e;
-    border-color: #008a3e;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 176, 80, 0.3);
+/* When the user hovers over the CARD: The button fills with vibrant green */
+.project-card:hover .btn-purchase {
+    background-color: #00b050;
+    color: white;
+    border-color: #00b050;
+    box-shadow: 0 4px 15px rgba(0, 176, 80, 0.2);
 }
 
-.project-card:hover .btn-purchase {
-    box-shadow: 0 4px 15px rgba(0, 176, 80, 0.2);
+/* When the user hovers directly over the PURCHASE BUTTON itself */
+.project-card:hover .btn-purchase:hover {
+    background-color: #008a3e;
+    border-color: #008a3e;
+    transform: translateY(-3px); 
+    box-shadow: 0 8px 20px rgba(0, 176, 80, 0.3);
 }
 
 /* Renaming the checkout item class slightly to avoid CSS overlap bugs */
