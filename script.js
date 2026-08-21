@@ -229,7 +229,7 @@ function resetForm() {
     }, 400); 
 }
 
-// --- Custom Dropdown & Product Loading Logic ---
+// --- Custom Dropdown, Background Loading & Direct Purchase Logic ---
 const customDropdownSelected = document.getElementById('customDropdownSelected');
 const customDropdownOptions = document.getElementById('customDropdownOptions');
 const inquiryTypeHidden = document.getElementById('inquiryTypeHidden');
@@ -241,92 +241,122 @@ const submitBtn = document.getElementById('submitBtn');
 const productList = document.getElementById('productList');
 const selectedProductInput = document.getElementById('selectedProduct');
 
-let productsFetched = false;
+// 1. Background Loading Engine
+let availableProducts = [];
+let isProductsLoading = true;
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxi5eKscJULcVf9ygblyu3MJqLAaHLAaqEk5_VN7DTe1e4BSOeE_gk9xvwaNkGF4mq4yQ/exec"; // <-- PASTE YOUR ACTUAL APPS SCRIPT URL HERE
 
-// 1. Open/Close the custom dropdown when clicked
+// Fetch silently as soon as the page loads
+fetch(WEB_APP_URL)
+    .then(res => res.json())
+    .then(data => {
+        availableProducts = data;
+        isProductsLoading = false;
+        // If the user already opened the product container, render it instantly
+        if (productContainer.style.display === 'block') {
+            renderProductCards();
+        }
+    });
+
+// 2. Render Products Logic
+function renderProductCards(autoSelectName = null) {
+    if (isProductsLoading) {
+        productList.innerHTML = `
+            <div class="loader-container">
+                <span class="loader-text">Loading Details</span>
+                <div class="jumping-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+            </div>`;
+        return;
+    }
+    
+    productList.innerHTML = '';
+    availableProducts.forEach(item => {
+        let div = document.createElement('div');
+        div.className = 'checkout-item'; // Updated class name to prevent conflicts
+        div.innerHTML = `
+            <span class="prod-name">${item.name}</span>
+            <div class="prod-pricing">
+                <span class="price-strike">₹${item.originalPrice}</span>
+                <span class="price-final">₹${item.discountedPrice}</span>
+            </div>
+        `;
+        
+        div.onclick = function() {
+            document.querySelectorAll('.checkout-item').forEach(el => el.classList.remove('selected'));
+            this.classList.add('selected');
+            selectedProductInput.value = item.name; 
+            document.getElementById('selectedProductPrice').value = item.discountedPrice;
+        };
+        
+        productList.appendChild(div);
+
+        // Instantly trigger a click on this item if directed from the purchase button
+        if (autoSelectName && item.name.toLowerCase() === autoSelectName.toLowerCase()) {
+            div.click();
+        }
+    });
+}
+
+// 3. Direct Purchase Button Function (Triggered from HTML)
+window.directPurchase = function(appName, event) {
+    event.stopPropagation(); // Prevents the card modal from opening
+    
+    // Smooth scroll to the contact section
+    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+    
+    // Force the dropdown to "Order Your App"
+    customDropdownSelected.textContent = "Order Your App";
+    customDropdownSelected.classList.add('has-value');
+    inquiryTypeHidden.value = "Order Your App";
+    
+    // Switch the UI to the App Checkout view
+    messageBox.style.display = 'none';
+    messageBox.removeAttribute('required');
+    productContainer.style.display = 'block';
+    submitBtn.innerHTML = 'Place an Order';
+    
+    // Render the cards and auto-select the one they clicked!
+    renderProductCards(appName);
+    
+    // Highlight the Name box to prompt them to finish
+    setTimeout(() => {
+        document.querySelector('input[name="name"]').focus();
+    }, 600);
+};
+
+// 4. Manual Dropdown Interaction
 customDropdownSelected.addEventListener('click', function(event) {
-    event.stopPropagation(); // Prevents click from instantly closing it
+    event.stopPropagation();
     customDropdownOptions.classList.toggle('open');
 });
 
-// 2. Close dropdown if the user clicks anywhere else on the screen
 document.addEventListener('click', function(event) {
     if (!customDropdownSelected.contains(event.target) && !customDropdownOptions.contains(event.target)) {
         customDropdownOptions.classList.remove('open');
     }
 });
 
-// 3. Handle what happens when an option is clicked
 customOptions.forEach(option => {
     option.addEventListener('click', function() {
         const selectedValue = this.getAttribute('data-value');
-        
-        // Update the visual text and the hidden input
         customDropdownSelected.textContent = this.textContent;
         customDropdownSelected.classList.add('has-value');
         inquiryTypeHidden.value = selectedValue;
-        
-        // Close the menu
         customDropdownOptions.classList.remove('open');
 
-        // --- Logic for showing products ---
         if (selectedValue === 'Order Your App') {
-            // Hide Textbox, Show Products
             messageBox.style.display = 'none';
             messageBox.removeAttribute('required');
             productContainer.style.display = 'block';
             submitBtn.innerHTML = 'Place an Order';
-            
-            // Fetch from G-Sheet if not already fetched
-            if (!productsFetched) {
-                // Injecting the premium jumping dots animation
-                productList.innerHTML = `
-                    <div class="loader-container">
-                        <span class="loader-text">Loading</span>
-                        <div class="jumping-dots">
-                            <span class="dot"></span>
-                            <span class="dot"></span>
-                            <span class="dot"></span>
-                        </div>
-                    </div>
-                `;
-                
-                fetch("https://script.google.com/macros/s/AKfycbxi5eKscJULcVf9ygblyu3MJqLAaHLAaqEk5_VN7DTe1e4BSOeE_gk9xvwaNkGF4mq4yQ/exec") // <-- MAKE SURE TO PASTE YOUR ACTUAL APP SCRIPT URL HERE
-                .then(res => res.json())
-                .then(data => {
-                    productList.innerHTML = '';
-                    data.forEach(item => {
-                        let div = document.createElement('div');
-                        div.className = 'product-card';
-                        div.innerHTML = `
-                            <span class="prod-name">${item.name}</span>
-                            <div class="prod-pricing">
-                                <span class="price-strike">₹${item.originalPrice}</span>
-                                <span class="price-final">₹${item.discountedPrice}</span>
-                            </div>
-                        `;
-                        div.onclick = function() {
-                            document.querySelectorAll('.product-card').forEach(el => el.classList.remove('selected'));
-                            this.classList.add('selected');
-                            
-                            // Save name for the sheet, save raw price for Razorpay
-                            selectedProductInput.value = item.name; 
-                            document.getElementById('selectedProductPrice').value = item.discountedPrice;
-                        };
-                        
-                        productList.appendChild(div);
-                    });
-                    productsFetched = true;
-                });
-            }
+            renderProductCards();
         } else {
-            // Reset to Standard Form
             messageBox.style.display = 'block';
             messageBox.setAttribute('required', 'true');
             productContainer.style.display = 'none';
             submitBtn.innerHTML = 'Send Request';
-            selectedProductInput.value = ''; // clear selection
-            document.querySelectorAll('.product-card').forEach(el => el.classList.remove('selected'));
+            selectedProductInput.value = ''; 
+            document.querySelectorAll('.checkout-item').forEach(el => el.classList.remove('selected'));
         }
     });
 });
