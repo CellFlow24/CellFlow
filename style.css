@@ -234,3 +234,22 @@ footer { background: #1a202c; color: #a0aec0; padding: 60px 20px 20px; margin-to
     .premium-stat-card { min-width: 100%; margin-bottom: 20px; }
     .floating-cta { bottom: 20px; right: 20px; padding: 14px 22px; font-size: 1rem; }
 }
+
+/*CUSTOM DEV BANNER & SUCCESS BUTTON FIX */
+.custom-dev-section { max-width: 1000px; padding: 40px 20px 0; margin-bottom: -20px; }
+.custom-dev-card { background: linear-gradient(135deg, #0056b3 0%, #00b050 100%); border-radius: 20px; padding: 40px 50px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 15px 35px rgba(0, 86, 179, 0.25); flex-wrap: wrap; gap: 20px; }
+.custom-dev-text { flex: 1; min-width: 300px; }
+.custom-dev-text h2 { color: white; margin-bottom: 15px; font-size: 2rem; text-align: left; }
+.custom-dev-text p { color: rgba(255, 255, 255, 0.9); font-size: 1.1rem; line-height: 1.5; margin: 0; }
+.custom-dev-btn { background: white; color: #0056b3; font-size: 1.1rem; padding: 16px 32px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 10px; border-radius: 50px; border: none; font-weight: bold; }
+.custom-dev-btn:hover { background: #f8fafc; color: #00b050; transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0,0,0,0.25); }
+
+/* Fix for the Success Popup Button */
+.btn-outline { background-color: transparent; color: #0056b3; padding: 12px 24px; border: 2px solid #cbd5e0; border-radius: 30px; cursor: pointer; font-weight: 700; font-size: 1rem; transition: all 0.3s ease; display: inline-block; font-family: inherit; }
+.btn-outline:hover { background-color: #f8fafc; border-color: #0056b3; box-shadow: 0 4px 15px rgba(0,86,179,0.1); }
+
+@media (max-width: 850px) {
+    .custom-dev-card { flex-direction: column; text-align: center; padding: 30px 20px; }
+    .custom-dev-text h2 { text-align: center; }
+    .custom-dev-btn { width: 100%; justify-content: center; }
+}
