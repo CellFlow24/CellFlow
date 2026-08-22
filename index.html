@@ -73,6 +73,17 @@
         </div>
     </section>
 
+    <!-- CUSTOM DEVELOPMENT BANNER -->
+    <section class="custom-dev-section reveal">
+        <div class="custom-dev-card">
+            <div class="custom-dev-text">
+                <h2>Need a Custom Website or App?</h2>
+                <p>We don't just sell pre-made apps. We build bespoke, high-performance web and mobile applications tailored precisely to your business workflow.</p>
+            </div>
+            <button class="btn-primary custom-dev-btn" onclick="requestCustomBuild(event)">Request a Custom Build <span>&#8594;</span></button>
+        </div>
+    </section>
+
     <!-- PROJECTS SECTION -->
     <section id="projects" class="projects-section reveal">
         <h2>Our Products</h2>
@@ -187,6 +198,7 @@
                 <div class="custom-dropdown-options" id="customDropdownOptions">
                     <div class="custom-option" data-value="Order Your App">Order Your App</div>
                     <div class="custom-option" data-value="Inquiry about Apps">Inquiry about Apps</div>
+                    <div class="custom-option" data-value="Need a Custom Website/App">Need a Custom Website/App</div>
                     <div class="custom-option" data-value="Technical Support/Complaint">Technical Support or Complaint</div>
                 </div>
                 <!-- Hidden input stores the actual value for the form submission -->
@@ -218,7 +230,7 @@
                 </svg>
                 <h3>Request Received</h3>
                 <p>Team Cellflow will be in touch shortly.</p>
-                <button class="btn-secondary" onclick="resetForm()" style="max-width: 200px; margin: 20px auto 0;">Send Another</button>
+                <button class="btn-outline" onclick="resetForm()" style="margin: 20px auto 0;">Submit Another Request</button>
             </div>
         </div>
     </section>
