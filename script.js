@@ -114,18 +114,20 @@ function slideGallery(sliderId, direction) {
     slider.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
 }
 
-// --- Form Submission & Razorpay Integration (ENTERPRISE REDIRECT FLOW) ---
+// --- Form Submission & Razorpay Integration (HYBRID MODAL + WEBHOOK) ---
 document.getElementById('leadForm').addEventListener('submit', function(e) {
     e.preventDefault(); 
     
     var submitBtn = document.getElementById('submitBtn');
     var formData = new FormData(this);
     var inquiryType = document.getElementById('inquiryTypeHidden').value;
+    var name = formData.get('name');
+    var email = formData.get('email');
     
     // IMPORTANT: Make sure your actual Apps Script URL is here
     var webAppUrl = "https://script.google.com/macros/s/AKfycbxi5eKscJULcVf9ygblyu3MJqLAaHLAaqEk5_VN7DTe1e4BSOeE_gk9xvwaNkGF4mq4yQ/exec"; 
 
-    // 1. App Orders (Redirect to Razorpay Hosted Page)
+    // 1. App Orders (Native Popup with Pre-Logging)
     if (inquiryType === 'Order Your App') {
         var productName = document.getElementById('selectedProduct').value;
         var productPrice = document.getElementById('selectedProductPrice').value;
@@ -135,30 +137,56 @@ document.getElementById('leadForm').addEventListener('submit', function(e) {
             return;
         }
 
+        // Generate Ticket ID in frontend so we can tie it to the Razorpay Payment
+        var ticketId = "CF-" + Math.floor(100000 + Math.random() * 900000);
+
         formData.set('inquiryType', inquiryType);
         formData.set('message', productName);
         formData.set('paymentStatus', 'Pending');
         formData.set('paymentAmount', productPrice);
+        formData.set('ticketId', ticketId);
 
-        submitBtn.innerHTML = "Generating Secure Checkout...";
+        submitBtn.innerHTML = "Opening Secure Checkout...";
         submitBtn.style.opacity = "0.7";
-        
-        // Log to Google Sheets FIRST, then redirect
-        fetch(webAppUrl, { method: 'POST', body: formData })
-        .then(response => response.text())
-        .then(text => {
-            var data = JSON.parse(text);
-            if (data.status === "redirect" && data.url) {
-                submitBtn.innerHTML = "Redirecting to Razorpay...";
-                window.location.href = data.url; // Safely redirects away from mobile refresh bug
-            } else {
-                throw new Error("Failed to generate link");
+
+        // Fire-and-forget: Log "Pending" order to Sheets immediately
+        fetch(webAppUrl, { method: 'POST', body: formData }).catch(e => console.log(e));
+
+        var options = {
+            "key": "rzp_live_TSvZvBK9HMg5eU",
+            "amount": parseFloat(productPrice) * 100,
+            "currency": "INR",
+            "name": "Cellflow",
+            "description": "Order: " + productName,
+            "image": "https://cellflow24.github.io/logo.png",
+            "notes": { "ticketId": ticketId }, // Crucial: This tells the Webhook which order was paid!
+            "handler": function (response) {
+                // The user stayed in the browser! Show the awesome animation.
+                document.getElementById('formContainer').style.display = 'none';
+                document.getElementById('successState').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('successBlob').classList.add('active');
+                    document.getElementById('successContent').classList.add('active');
+                }, 50);
+                document.getElementById('leadForm').reset();
+                document.getElementById('customDropdownSelected').textContent = "How can we help you?";
+                document.getElementById('customDropdownSelected').classList.remove('has-value');
+
+                submitBtn.innerHTML = "Place an Order";
+                submitBtn.style.opacity = "1";
+            },
+            "prefill": { "name": name, "email": email },
+            "theme": { "color": "#0056b3" },
+            "modal": {
+                "ondismiss": function() {
+                    submitBtn.innerHTML = "Place an Order";
+                    submitBtn.style.opacity = "1";
+                }
             }
-        })
-        .catch(error => {
-            submitBtn.innerHTML = "Error! Try Again";
-            submitBtn.style.backgroundColor = "red";
-        });
+        };
+
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
 
     } else {
         // 2. Normal Support / Complaints / Custom Dev
