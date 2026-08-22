@@ -360,3 +360,31 @@ customOptions.forEach(option => {
         }
     });
 });
+
+// 5. Custom Build Request Function
+window.requestCustomBuild = function(event) {
+    event.stopPropagation();
+    
+    // Scroll to the contact section
+    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+    
+    // Force the dropdown to "Need a Custom Website/App"
+    customDropdownSelected.textContent = "Need a Custom Website/App";
+    customDropdownSelected.classList.add('has-value');
+    inquiryTypeHidden.value = "Need a Custom Website/App";
+    
+    // Switch UI to normal inquiry mode (hide products, show text box)
+    messageBox.style.display = 'block';
+    messageBox.setAttribute('required', 'true');
+    productContainer.style.display = 'none';
+    submitBtn.innerHTML = 'Send Request';
+    
+    // Clear any previously selected product to be safe
+    selectedProductInput.value = ''; 
+    document.querySelectorAll('.checkout-item').forEach(el => el.classList.remove('selected'));
+    
+    // Prompt them to start typing
+    setTimeout(() => {
+        document.querySelector('input[name="name"]').focus();
+    }, 600);
+};
