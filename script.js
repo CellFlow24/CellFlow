@@ -114,20 +114,18 @@ function slideGallery(sliderId, direction) {
     slider.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
 }
 
-// --- Form Submission & Razorpay Integration ---
+// --- Form Submission & Razorpay Integration (ENTERPRISE REDIRECT FLOW) ---
 document.getElementById('leadForm').addEventListener('submit', function(e) {
     e.preventDefault(); 
     
     var submitBtn = document.getElementById('submitBtn');
     var formData = new FormData(this);
     var inquiryType = document.getElementById('inquiryTypeHidden').value;
-    var name = formData.get('name');
-    var email = formData.get('email');
     
     // IMPORTANT: Make sure your actual Apps Script URL is here
     var webAppUrl = "https://script.google.com/macros/s/AKfycbxi5eKscJULcVf9ygblyu3MJqLAaHLAaqEk5_VN7DTe1e4BSOeE_gk9xvwaNkGF4mq4yQ/exec"; 
 
-    // 1. App Orders
+    // 1. App Orders (Redirect to Razorpay Hosted Page)
     if (inquiryType === 'Order Your App') {
         var productName = document.getElementById('selectedProduct').value;
         var productPrice = document.getElementById('selectedProductPrice').value;
@@ -137,47 +135,33 @@ document.getElementById('leadForm').addEventListener('submit', function(e) {
             return;
         }
 
-        submitBtn.innerHTML = "Opening Secure Checkout...";
+        formData.set('inquiryType', inquiryType);
+        formData.set('message', productName);
+        formData.set('paymentStatus', 'Pending');
+        formData.set('paymentAmount', productPrice);
+
+        submitBtn.innerHTML = "Generating Secure Checkout...";
         submitBtn.style.opacity = "0.7";
-
-        var options = {
-            "key": "rzp_live_TSvZvBK9HMg5eU",
-            "amount": parseFloat(productPrice) * 100,
-            "currency": "INR",
-            "name": "Cellflow",
-            "description": "Order: " + productName,
-            "image": "https://cellflow24.github.io/logo.png",
-            "handler": function (response) {
-                submitBtn.innerHTML = "Payment Successful! Processing...";
-                
-                // Set the exact App Name and details into the Description column
-                formData.set('inquiryType', inquiryType);
-                formData.set('message', productName + " (Razorpay ID: " + response.razorpay_payment_id + ")");
-                formData.set('paymentStatus', 'Paid');
-                formData.set('paymentAmount', productPrice);
-
-                sendToGoogleSheets(formData, submitBtn, webAppUrl);
-            },
-            "prefill": {
-                "name": name,
-                "email": email
-            },
-            "theme": {
-                "color": "#0056b3"
-            },
-            "modal": {
-                "ondismiss": function() {
-                    submitBtn.innerHTML = "Place an Order";
-                    submitBtn.style.opacity = "1";
-                }
+        
+        // Log to Google Sheets FIRST, then redirect
+        fetch(webAppUrl, { method: 'POST', body: formData })
+        .then(response => response.text())
+        .then(text => {
+            var data = JSON.parse(text);
+            if (data.status === "redirect" && data.url) {
+                submitBtn.innerHTML = "Redirecting to Razorpay...";
+                window.location.href = data.url; // Safely redirects away from mobile refresh bug
+            } else {
+                throw new Error("Failed to generate link");
             }
-        };
-
-        var rzp1 = new Razorpay(options);
-        rzp1.open();
+        })
+        .catch(error => {
+            submitBtn.innerHTML = "Error! Try Again";
+            submitBtn.style.backgroundColor = "red";
+        });
 
     } else {
-        // 2. Normal Support / Complaints
+        // 2. Normal Support / Complaints / Custom Dev
         submitBtn.innerHTML = "Sending...";
         submitBtn.style.opacity = "0.7";
         
@@ -187,7 +171,28 @@ document.getElementById('leadForm').addEventListener('submit', function(e) {
         formData.set('paymentStatus', 'Pending');
         formData.set('paymentAmount', '0');
 
-        sendToGoogleSheets(formData, submitBtn, webAppUrl);
+        fetch(webAppUrl, { method: 'POST', body: formData })
+        .then(response => response.text())
+        .then(text => {
+            var data = JSON.parse(text);
+            if(data.status === "success") {
+                document.getElementById('formContainer').style.display = 'none';
+                document.getElementById('successState').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('successBlob').classList.add('active');
+                    document.getElementById('successContent').classList.add('active');
+                }, 50);
+                document.getElementById('leadForm').reset();
+                document.getElementById('customDropdownSelected').textContent = "How can we help you?";
+                document.getElementById('customDropdownSelected').classList.remove('has-value');
+                submitBtn.innerHTML = "Send Request";
+                submitBtn.style.opacity = "1";
+            }
+        })
+        .catch(error => {
+            submitBtn.innerHTML = "Error! Try Again";
+            submitBtn.style.backgroundColor = "red";
+        });
     }
 });
 
