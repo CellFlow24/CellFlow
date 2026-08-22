@@ -141,7 +141,7 @@ document.getElementById('leadForm').addEventListener('submit', function(e) {
         submitBtn.style.opacity = "0.7";
 
         var options = {
-            "key": "rzp_test_TS4mz1svkOkv0u",
+            "key": "rzp_test_TSvLr69p0fqdS8",
             "amount": parseFloat(productPrice) * 100,
             "currency": "INR",
             "name": "Cellflow",
